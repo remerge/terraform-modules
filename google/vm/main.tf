@@ -46,7 +46,7 @@ resource "google_compute_disk" "main" {
   size     = each.value.size
 }
 
-resource "google_dns_record_set" "netbox" {
+resource "google_dns_record_set" "instance" {
   count        = var.domain != null ? 1 : 0
   managed_zone = var.domain.name
   name         = "${google_compute_instance_from_template.main.hostname}."
