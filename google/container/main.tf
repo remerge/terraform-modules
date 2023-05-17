@@ -2,6 +2,7 @@ module "vm" {
   source = "../vm"
 
   name    = var.name
+  domain  = var.domain
   project = var.project
   zone    = var.zone
 
@@ -10,7 +11,8 @@ module "vm" {
   volumes      = var.volumes
 
   # Container Optimized OS
-  disk_image = "cos-cloud/cos-stable"
+  disk_image = var.disk_image
+  disk_size  = var.disk_size
 
   metadata = {
     # no need to login to this container vm

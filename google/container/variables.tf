@@ -2,6 +2,11 @@ variable "name" {
   type = string
 }
 
+variable "domain" {
+  type    = any
+  default = null
+}
+
 variable "template" {
   type = any
 }
@@ -11,13 +16,14 @@ variable "machine_type" {
   default = "n2d-standard-2"
 }
 
-variable "image" {
-  type = string
+variable "disk_image" {
+  type    = string
+  default = "cos-cloud/cos-stable"
 }
 
-variable "env" {
-  type    = map(any)
-  default = {}
+variable "disk_size" {
+  type    = number
+  default = 10
 }
 
 variable "volumes" {
@@ -26,6 +32,15 @@ variable "volumes" {
     size = optional(number, 10)
     path = string
   }))
+  default = {}
+}
+
+variable "image" {
+  type = string
+}
+
+variable "env" {
+  type    = map(any)
   default = {}
 }
 

@@ -26,17 +26,17 @@ variable "disk_size" {
   default = 10
 }
 
-variable "metadata" {
-  type    = map(any)
-  default = {}
-}
-
 variable "volumes" {
   type = map(object({
     type = optional(string, "pd-ssd")
     size = optional(number, 10)
     path = optional(string, null)
   }))
+  default = {}
+}
+
+variable "metadata" {
+  type    = map(any)
   default = {}
 }
 
