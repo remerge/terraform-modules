@@ -1,6 +1,6 @@
 ---
 # Changes here will be overwritten by Copier
-_commit: v1.13.2-6-g5575870
+_commit: v1.13.2-12-g93b3f77
 _src_path: gh:remerge/template
 deploy_branch: production
 google_cloud_gke_master_subnet: None
@@ -12,7 +12,7 @@ project_id: terraform-modules
 project_license: apache-2.0
 project_name: Terraform Modules
 project_owner: sre
-project_type: default
+project_type: terraform-module
 use_ansible: false
 use_docker: false
 use_golang: false

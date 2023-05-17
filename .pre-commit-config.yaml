@@ -71,9 +71,18 @@ repos:
       - id: actionlint-docker
         name: actionlint
 
+  # https://github.com/antonbabenko/pre-commit-terraform/tags
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: "v1.79.1"
+    hooks:
+      - id: terraform_fmt
+        name: terraform-fmt
+      - id: terraform_validate
+        name: terraform-validate
+
   # https://github.com/bridgecrewio/checkov/tags
   - repo: https://github.com/bridgecrewio/checkov
-    rev: "2.3.224"
+    rev: "2.3.245"
     hooks:
       - id: checkov
         name: checkov

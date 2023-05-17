@@ -559,3 +559,7 @@ cache/
 # Ignore SSH keys
 id_*
 *.key
+
+# Ignore Terraform lock and cache from submodules
+*/**/.terraform
+*/**/.terraform.lock.hcl
