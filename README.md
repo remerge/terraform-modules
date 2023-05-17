@@ -1,2 +1,3 @@
-# terraform-modules
+# Terraform Modules
+
 Collection of reusable Terraform modules
