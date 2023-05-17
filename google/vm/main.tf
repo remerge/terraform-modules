@@ -1,5 +1,5 @@
 locals {
-  domain   = trimsuffix(var.domain.dns_name, ".")
+  domain   = var.domain != null ? trimsuffix(var.domain.dns_name, ".") : null
   hostname = var.domain != null ? "${var.name}.${local.domain}" : var.name
   metadata = length(var.metadata) > 0 ? var.metadata : var.template.metadata
 }
