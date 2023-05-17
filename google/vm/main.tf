@@ -1,6 +1,6 @@
 locals {
   domain   = var.domain != null ? trimsuffix(var.domain.dns_name, ".") : null
-  hostname = var.domain != null ? "${var.name}.${local.domain}" : var.name
+  hostname = var.domain != null ? "${var.name}.${local.domain}" : null
   metadata = length(var.metadata) > 0 ? var.metadata : var.template.metadata
 }
 
