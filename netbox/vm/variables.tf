@@ -7,17 +7,27 @@ variable "ip_address" {
   default = null
 }
 
-variable "role_id" {
+variable "interface" {
+  type    = string
+  default = null
+}
+
+variable "role" {
   type    = number
   default = null
 }
 
-variable "site_id" {
+variable "site" {
   type    = number
   default = null
 }
 
-variable "cluster_id" {
+variable "cluster" {
+  type    = number
+  default = null
+}
+
+variable "platform" {
   type    = number
   default = null
 }
