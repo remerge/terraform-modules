@@ -13,22 +13,22 @@ variable "interface" {
 }
 
 variable "role" {
-  type    = number
+  type    = any
   default = null
 }
 
 variable "site" {
-  type    = number
+  type    = any
   default = null
 }
 
 variable "cluster" {
-  type    = number
+  type    = any
   default = null
 }
 
 variable "platform" {
-  type    = number
+  type    = any
   default = null
 }
 
