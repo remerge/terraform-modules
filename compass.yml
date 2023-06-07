@@ -1,0 +1,17 @@
+name: terraform-modules
+id: ari:cloud:compass:1f02c36b-a506-45d6-bf3b-c800a6bbcfa5:component/27e24933-56f2-4b79-98cf-256bc22a164a/230f6b2e-c527-406d-8234-56e674e92377
+description: Collection of reusable Terraform modules
+configVersion: 1
+typeId: LIBRARY
+fields:
+  tier: 4
+links:
+  - name: null
+    type: REPOSITORY
+    url: https://github.com/remerge/terraform-modules
+relationships:
+  DEPENDS_ON: []
+labels:
+  - language:hcl
+  - source:github
+customFields: null
