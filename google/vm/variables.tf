@@ -70,3 +70,8 @@ variable "metadata" {
   type    = map(any)
   default = null
 }
+
+variable "interface" {
+  type    = string
+  default = null
+}

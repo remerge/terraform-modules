@@ -63,11 +63,16 @@ resource "google_dns_record_set" "instance" {
 }
 
 module "netbox-vm" {
-  source   = "../../netbox/vm"
-  name     = google_compute_instance_from_template.main.hostname
+  source = "../../netbox/vm"
+
+  name = google_compute_instance_from_template.main.hostname
+
   role     = var.role
   platform = var.platform
   site     = var.site
   cluster  = var.cluster
   tags     = [var.project]
+
+  interface  = var.interface
+  ip_address = google_compute_instance_from_template.main.network_interface[0].network_ip
 }

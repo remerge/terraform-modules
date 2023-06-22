@@ -19,6 +19,9 @@ module "vm" {
   disk_size  = var.disk_size
   volumes    = var.volumes
 
+  # trigger netbox interface resource
+  interface = "internal"
+
   metadata = {
     # no need to login to this container vm
     block-project-ssh-keys = true
