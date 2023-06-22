@@ -76,3 +76,9 @@ resource "google_compute_instance_template" "default" {
 }
 
 data "google_compute_default_service_account" "default" {}
+
+resource "google_project_iam_member" "compute_metric_writer" {
+  project = var.project
+  role    = "roles/monitoring.metricWriter"
+  member  = "serviceAccount:${data.google_compute_default_service_account.default.email}"
+}
