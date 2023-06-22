@@ -59,7 +59,7 @@ resource "google_compute_instance_template" "default" {
   network_interface {
     subnetwork = var.subnetwork
     # shared vpc provides subnetwork
-    subnetwork_project = data.google_projects.network.projects[0].project_id
+    subnetwork_project = var.subnetwork_project
   }
 
   service_account {
@@ -76,7 +76,3 @@ resource "google_compute_instance_template" "default" {
 }
 
 data "google_compute_default_service_account" "default" {}
-
-data "google_projects" "network" {
-  filter = "name:'Global Network'"
-}
