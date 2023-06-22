@@ -1,13 +1,36 @@
 resource "netbox_virtual_machine" "main" {
   name        = var.name
-  role_id     = var.role != null ? var.role.id : null
-  site_id     = var.site != null ? var.site.id : null
-  cluster_id  = var.cluster != null ? var.cluster.id : null
-  platform_id = var.platform != null ? var.platform.id : null
+  role_id     = data.netbox_device_role.main.id
+  platform_id = data.netbox_platform.main.id
+  site_id     = var.site != null ? data.netbox_site.main[0].id : null
+  cluster_id  = var.cluster != null ? data.netbox_cluster.main[0].id : null
   tags        = var.tags
 }
 
-resource "netbox_interface" "internal" {
+data "netbox_device_role" "main" {
+  name = var.role
+}
+
+data "netbox_platform" "main" {
+  name = var.platform
+}
+
+data "netbox_site" "main" {
+  count = var.site != null ? 1 : 0
+  name  = var.site
+}
+
+data "netbox_cluster" "main" {
+  count = var.cluster != null ? 1 : 0
+  name  = var.cluster
+}
+
+moved {
+  from = netbox_interface.internal
+  to   = netbox_interface.main
+}
+
+resource "netbox_interface" "main" {
   count              = var.interface != null ? 1 : 0
   virtual_machine_id = netbox_virtual_machine.main.id
   name               = var.interface
@@ -16,8 +39,8 @@ resource "netbox_interface" "internal" {
 
 resource "netbox_ip_address" "main" {
   count        = var.interface != null ? 1 : 0
-  interface_id = netbox_interface.internal[0].id
-  ip_address   = "${var.ip_address}/32"
+  interface_id = netbox_interface.main[0].id
+  ip_address   = var.ip_address
   status       = "active"
   tags         = var.tags
 }

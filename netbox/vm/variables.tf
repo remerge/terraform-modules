@@ -2,19 +2,14 @@ variable "name" {
   type = string
 }
 
-variable "ip_address" {
-  type    = string
-  default = null
-}
-
-variable "interface" {
-  type    = string
-  default = null
-}
-
 variable "role" {
-  type    = any
-  default = null
+  type    = string
+  default = "Other"
+}
+
+variable "platform" {
+  type    = string
+  default = "Other"
 }
 
 variable "site" {
@@ -27,12 +22,17 @@ variable "cluster" {
   default = null
 }
 
-variable "platform" {
-  type    = any
-  default = null
-}
-
 variable "tags" {
   type    = list(string)
   default = []
+}
+
+variable "interface" {
+  type    = string
+  default = null
+}
+
+variable "ip_address" {
+  type    = string
+  default = null
 }

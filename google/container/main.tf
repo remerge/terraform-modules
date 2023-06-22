@@ -1,18 +1,26 @@
 module "vm" {
   source = "../vm"
 
-  name    = var.name
-  domain  = var.domain
   project = var.project
   zone    = var.zone
 
-  template     = var.template
-  machine_type = var.machine_type
-  volumes      = var.volumes
+  name   = var.name
+  domain = var.domain
 
-  # Container Optimized OS
+  template = var.template
+  role     = var.role
+  platform = var.platform
+  site     = var.site
+  cluster  = var.cluster
+
+  machine_type = var.machine_type
+
   disk_image = var.disk_image
   disk_size  = var.disk_size
+  volumes    = var.volumes
+
+  # trigger netbox interface resource
+  interface = "internal"
 
   metadata = {
     # no need to login to this container vm

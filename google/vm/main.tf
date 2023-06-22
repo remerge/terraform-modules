@@ -1,23 +1,28 @@
 locals {
   domain   = var.domain != null ? trimsuffix(var.domain.dns_name, ".") : null
   hostname = var.domain != null ? "${var.name}.${local.domain}" : null
-  metadata = length(var.metadata) > 0 ? var.metadata : var.template.metadata
+  metadata = var.metadata != null ? var.metadata : local.template.metadata
+  template = data.google_compute_instance_template.main
+}
+
+data "google_compute_instance_template" "main" {
+  name = var.template
 }
 
 resource "google_compute_instance_from_template" "main" {
-  source_instance_template = var.template.self_link_unique
+  source_instance_template = local.template.self_link_unique
 
-  name    = var.name
   project = var.project
   zone    = var.zone
 
-  machine_type = var.machine_type
-
+  name     = var.name
   hostname = local.hostname
   metadata = merge(local.metadata, {
     # https://docs.bridgecrew.io/docs/bc_gcp_networking_8
     block-project-ssh-keys = true
   })
+
+  machine_type = var.machine_type
 
   boot_disk {
     device_name = "boot"
@@ -41,6 +46,7 @@ resource "google_compute_instance_from_template" "main" {
 
 resource "google_compute_disk" "main" {
   for_each = var.volumes
+  project  = var.project
   name     = "${var.name}-${each.key}"
   type     = each.value.type
   size     = each.value.size
@@ -48,9 +54,25 @@ resource "google_compute_disk" "main" {
 
 resource "google_dns_record_set" "instance" {
   count        = var.domain != null ? 1 : 0
+  project      = var.project
   managed_zone = var.domain.name
   name         = "${google_compute_instance_from_template.main.hostname}."
   type         = "A"
   ttl          = 300
   rrdatas      = [google_compute_instance_from_template.main.network_interface[0].network_ip]
+}
+
+module "netbox-vm" {
+  source = "../../netbox/vm"
+
+  name = google_compute_instance_from_template.main.hostname
+
+  role     = var.role
+  platform = var.platform
+  site     = var.site
+  cluster  = var.cluster
+  tags     = [var.project]
+
+  interface  = var.interface
+  ip_address = "${google_compute_instance_from_template.main.network_interface[0].network_ip}/32"
 }

@@ -1,3 +1,13 @@
+variable "project" {
+  type    = string
+  default = null
+}
+
+variable "zone" {
+  type    = string
+  default = null
+}
+
 variable "name" {
   type = string
 }
@@ -8,7 +18,28 @@ variable "domain" {
 }
 
 variable "template" {
-  type = any
+  type    = string
+  default = "default"
+}
+
+variable "role" {
+  type    = string
+  default = "Other"
+}
+
+variable "platform" {
+  type    = string
+  default = "AlmaLinux"
+}
+
+variable "site" {
+  type    = any
+  default = null
+}
+
+variable "cluster" {
+  type    = any
+  default = null
 }
 
 variable "machine_type" {
@@ -37,15 +68,10 @@ variable "volumes" {
 
 variable "metadata" {
   type    = map(any)
-  default = {}
-}
-
-variable "project" {
-  type    = string
   default = null
 }
 
-variable "zone" {
+variable "interface" {
   type    = string
   default = null
 }
