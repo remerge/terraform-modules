@@ -8,7 +8,8 @@ variable "domain" {
 }
 
 variable "template" {
-  type = any
+  type    = string
+  default = null
 }
 
 variable "machine_type" {
