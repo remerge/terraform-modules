@@ -13,16 +13,16 @@ resource "google_compute_instance_from_template" "main" {
   source_instance_template = local.template.self_link_unique
 
   project = var.project
-  name    = var.name
   zone    = var.zone
 
-  machine_type = var.machine_type
-
+  name     = var.name
   hostname = local.hostname
   metadata = merge(local.metadata, {
     # https://docs.bridgecrew.io/docs/bc_gcp_networking_8
     block-project-ssh-keys = true
   })
+
+  machine_type = var.machine_type
 
   boot_disk {
     device_name = "boot"

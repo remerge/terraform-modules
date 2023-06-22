@@ -3,13 +3,13 @@ variable "project" {
   default = null
 }
 
-variable "name" {
-  type = string
-}
-
 variable "zone" {
   type    = string
   default = null
+}
+
+variable "name" {
+  type = string
 }
 
 variable "domain" {
