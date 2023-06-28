@@ -5,8 +5,7 @@ variable "name" {
 variable "groups" {
   type = list(string)
   default = [
-    "Core Platform Team",
-    "Data Platform Team",
     "On-Call Team",
+    "Platform Team",
   ]
 }
