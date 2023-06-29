@@ -65,7 +65,10 @@ resource "google_dns_record_set" "instance" {
 module "netbox-vm" {
   source = "../../netbox/vm"
 
-  name = google_compute_instance_from_template.main.hostname
+  name = coalesce(
+    google_compute_instance_from_template.main.hostname,
+    google_compute_instance_from_template.main.name,
+  )
 
   role     = var.role
   platform = var.platform
