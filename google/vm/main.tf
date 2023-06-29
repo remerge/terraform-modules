@@ -1,6 +1,6 @@
 locals {
   domain   = var.domain != null ? trimsuffix(var.domain.dns_name, ".") : null
-  hostname = var.domain != null ? "${var.name}.${local.domain}" : null
+  hostname = var.domain != null ? "${coalesce(var.hostname, var.name)}.${local.domain}" : null
   metadata = var.metadata != null ? var.metadata : local.template.metadata
   template = data.google_compute_instance_template.main
 }

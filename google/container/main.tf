@@ -4,8 +4,9 @@ module "vm" {
   project = var.project
   zone    = var.zone
 
-  name   = var.name
-  domain = var.domain
+  name     = var.name
+  hostname = var.hostname
+  domain   = var.domain
 
   template = var.template
   role     = var.role
