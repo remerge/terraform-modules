@@ -21,7 +21,7 @@ locals {
 resource "google_dns_managed_zone" "private" {
   count       = var.domain != null ? 1 : 0
   project     = var.project
-  name        = "private"
+  name        = var.name
   dns_name    = "${local.domain}."
   description = local.domain
   visibility  = "private"

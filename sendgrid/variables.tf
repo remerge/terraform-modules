@@ -1,7 +1,7 @@
-variable "name" {
+variable "project" {
   type = string
 }
 
-variable "project" {
+variable "name" {
   type = string
 }
