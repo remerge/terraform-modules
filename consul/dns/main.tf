@@ -1,7 +1,7 @@
 resource "google_dns_record_set" "quorum" {
   project      = var.project
   managed_zone = var.domain.name
-  name         = "quorum.${var.domain.description}."
+  name         = "quorum.${var.domain.dns_name}"
   type         = "A"
   ttl          = 300
   rrdatas      = var.targets
