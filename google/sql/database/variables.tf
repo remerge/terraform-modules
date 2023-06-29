@@ -7,6 +7,5 @@ variable "instance" {
 }
 
 variable "project" {
-  type    = string
-  default = null
+  type = string
 }

@@ -1,6 +1,5 @@
 variable "project" {
-  type    = string
-  default = null
+  type = string
 }
 
 variable "name" {
