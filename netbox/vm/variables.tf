@@ -12,7 +12,7 @@ variable "hostname" {
 }
 
 variable "domain" {
-  type    = any
+  type    = string
   default = null
 }
 

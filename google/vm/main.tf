@@ -1,6 +1,12 @@
+data "google_dns_managed_zone" "main" {
+  count   = var.domain != null ? 1 : 0
+  project = var.project
+  name    = var.domain
+}
+
 locals {
   hostname = coalesce(var.hostname, var.name)
-  domain   = var.domain != null ? trimsuffix(var.domain.dns_name, ".") : "local"
+  domain   = try(trimsuffix(data.google_dns_managed_zone.main[0].dns_name, "."), "local")
   fqdn     = "${local.hostname}.${local.domain}"
   metadata = coalesce(var.metadata, local.template.metadata)
   template = data.google_compute_instance_template.main

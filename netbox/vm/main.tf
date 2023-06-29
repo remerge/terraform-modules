@@ -1,6 +1,13 @@
+data "google_dns_managed_zone" "main" {
+  count   = var.domain != null ? 1 : 0
+  project = var.project
+  name    = var.domain
+}
+
 locals {
   hostname   = coalesce(var.hostname, var.name)
-  fqdn       = try("${local.hostname}.${trimsuffix(var.domain.dns_name, ".")}", local.hostname)
+  domain     = try(trimsuffix(data.google_dns_managed_zone.main[0].dns_name, "."), "local")
+  fqdn       = "${local.hostname}.${local.domain}"
   ip_address = var.ip_address != null ? split("/", var.ip_address)[0] : null
   ip_prefix  = var.ip_address != null ? try(split("/", var.ip_address)[1], "32") : null
 }
@@ -62,7 +69,7 @@ resource "netbox_primary_ip" "main" {
 resource "google_dns_record_set" "main" {
   count        = var.domain != null ? 1 : 0
   project      = var.project
-  managed_zone = var.domain.name
+  managed_zone = var.domain
   name         = "${local.fqdn}."
   type         = "A"
   ttl          = 300

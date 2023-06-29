@@ -3,7 +3,7 @@ variable "project" {
 }
 
 variable "domain" {
-  type = any
+  type = string
 }
 
 variable "targets" {

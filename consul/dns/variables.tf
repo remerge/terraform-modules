@@ -7,11 +7,11 @@ variable "name" {
 }
 
 variable "domain" {
-  type = any
+  type = string
 }
 
 variable "network" {
-  type = any
+  type = string
 }
 
 variable "targets" {

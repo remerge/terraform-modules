@@ -1,7 +1,12 @@
+data "google_dns_managed_zone" "main" {
+  project = var.project
+  name    = var.domain
+}
+
 resource "google_dns_record_set" "quorum" {
   project      = var.project
-  managed_zone = var.domain.name
-  name         = "quorum.${var.domain.dns_name}"
+  managed_zone = var.domain
+  name         = "quorum.${data.google_dns_managed_zone.main.dns_name}"
   type         = "A"
   ttl          = 300
   rrdatas      = var.targets
@@ -16,7 +21,7 @@ resource "google_dns_managed_zone" "consul" {
 
   private_visibility_config {
     networks {
-      network_url = var.network.id
+      network_url = var.network
     }
   }
 
