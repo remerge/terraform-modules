@@ -45,8 +45,8 @@ resource "netbox_interface" "main" {
 }
 
 resource "netbox_ip_address" "main" {
-  count        = var.ip_address != null ? 1 : 0
-  interface_id = var.interface != null ? netbox_interface.main[0].id : null
+  count        = var.interface != null && var.ip_address != null ? 1 : 0
+  interface_id = netbox_interface.main[0].id
   ip_address   = "${local.ip_address}/${local.ip_prefix}"
   dns_name     = local.fqdn
   status       = "active"
