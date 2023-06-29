@@ -1,4 +1,8 @@
 output "zone" {
+  value = google_dns_managed_zone.public
+}
+
+output "delegation" {
   value = {
     id      = google_dns_managed_zone.public.id
     name    = google_dns_managed_zone.public.dns_name
