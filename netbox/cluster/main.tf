@@ -15,14 +15,15 @@ resource "netbox_cluster" "main" {
 }
 
 locals {
-  dns_name = try(coalesce(var.dns_name, "${var.name}.${var.domain}"), null)
+  domain = try(coalesce(var.dns_name, "${var.name}.${var.domain}"), null)
 }
 
 resource "google_dns_managed_zone" "private" {
   count       = var.domain != null ? 1 : 0
+  project     = var.project
   name        = "private"
-  dns_name    = "grafana.${var.domain}."
-  description = "grafana.${var.domain}"
+  dns_name    = "${local.domain}."
+  description = local.domain
   visibility  = "private"
 
   private_visibility_config {
