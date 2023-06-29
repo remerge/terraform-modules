@@ -44,8 +44,9 @@ resource "google_certificate_manager_dns_authorization" "default" {
 }
 
 locals {
-  google_dns_auth    = google_certificate_manager_dns_authorization.default
-  google_acme_record = local.google_dns_auth.dns_resource_record[0]
+  google_dns_auth     = google_certificate_manager_dns_authorization.default
+  google_acme_record  = local.google_dns_auth.dns_resource_record[0]
+  google_cert_domains = [local.domain, "*.${local.domain}"]
 }
 
 resource "google_dns_record_set" "acme" {
@@ -61,16 +62,8 @@ resource "google_certificate_manager_certificate" "default" {
 
   managed {
     dns_authorizations = [local.google_dns_auth.id]
-    domains = [
-      local.domain,
-      "*.${local.domain}",
-    ]
+    domains            = local.google_cert_domains
   }
-}
-
-locals {
-  certificate = google_certificate_manager_certificate.default
-  certdomains = local.certificate.managed.0.domains
 }
 
 resource "google_certificate_manager_certificate_map" "default" {
@@ -81,9 +74,9 @@ resource "google_certificate_manager_certificate_map" "default" {
 }
 
 resource "google_certificate_manager_certificate_map_entry" "default" {
-  count        = length(local.certdomains)
+  count        = length(local.google_cert_domains)
   name         = "default-${count.index}"
-  hostname     = local.certdomains[count.index]
+  hostname     = local.google_cert_domains[count.index]
   certificates = [google_certificate_manager_certificate.default.id]
   map          = google_certificate_manager_certificate_map.default.name
 }
