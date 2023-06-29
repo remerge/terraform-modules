@@ -16,6 +16,11 @@ variable "site" {
   default = null
 }
 
+variable "network" {
+  type    = string
+  default = null
+}
+
 variable "domain" {
   type    = string
   default = null
@@ -26,7 +31,7 @@ variable "dns_name" {
   default = null
 }
 
-variable "network" {
-  type    = string
-  default = null
+variable "dns_records" {
+  type    = map(string)
+  default = {}
 }

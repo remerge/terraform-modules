@@ -32,3 +32,12 @@ resource "google_dns_managed_zone" "private" {
     }
   }
 }
+
+resource "google_dns_record_set" "main" {
+  for_each     = var.dns_records
+  managed_zone = google_dns_managed_zone.private[0].name
+  name         = "${each.key}.${google_dns_managed_zone.private[0].dns_name}"
+  type         = "A"
+  ttl          = 300
+  rrdatas      = [each.value]
+}
