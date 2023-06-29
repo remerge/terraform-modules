@@ -66,7 +66,7 @@ variable "volumes" {
   type = map(object({
     type = optional(string, "pd-ssd")
     size = optional(number, 10)
-    path = string
+    path = optional(string, null)
   }))
   default = {}
 }

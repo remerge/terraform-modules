@@ -1,5 +1,35 @@
+variable "project" {
+  type    = string
+  default = null
+}
+
+variable "region" {
+  type    = string
+  default = null
+}
+
 variable "name" {
   type = string
+}
+
+variable "hostname" {
+  type    = string
+  default = null
+}
+
+variable "domain" {
+  type    = any
+  default = null
+}
+
+variable "site" {
+  type    = any
+  default = null
+}
+
+variable "cluster" {
+  type    = any
+  default = null
 }
 
 variable "database_version" {
@@ -21,14 +51,4 @@ variable "backup" {
     location = optional(string, "eu")
   })
   default = {}
-}
-
-variable "project" {
-  type    = string
-  default = null
-}
-
-variable "region" {
-  type    = string
-  default = null
 }

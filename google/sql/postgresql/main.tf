@@ -79,6 +79,24 @@ resource "google_sql_database_instance" "main" {
   # checkov:skip=CKV2_GCP_13:Don't log SQL statement duration
 }
 
+module "netbox-vm" {
+  source = "../../../netbox/vm"
+
+  project = var.project
+  domain  = var.domain
+
+  name = coalesce(var.hostname, var.name)
+
+  role     = "PostgreSQL"
+  platform = "Cloud SQL"
+  site     = var.site
+  cluster  = var.cluster
+  tags     = [var.project]
+
+  interface  = "internal"
+  ip_address = google_sql_database_instance.main.private_ip_address
+}
+
 data "google_compute_default_service_account" "default" {}
 
 resource "google_project_iam_member" "compute_default_service_account" {

@@ -44,7 +44,7 @@ module "vm" {
           }]
           volumeMounts = [for name, value in var.volumes : {
             name      = name
-            mountPath = value.path
+            mountPath = coalesce(value.path, "/${name}")
           }]
         }]
         volumes = [for name, value in var.volumes : {

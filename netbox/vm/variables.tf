@@ -1,5 +1,20 @@
+variable "project" {
+  type    = string
+  default = null
+}
+
 variable "name" {
   type = string
+}
+
+variable "hostname" {
+  type    = string
+  default = null
+}
+
+variable "domain" {
+  type    = any
+  default = null
 }
 
 variable "role" {
