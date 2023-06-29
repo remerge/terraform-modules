@@ -48,6 +48,7 @@ resource "google_compute_instance_from_template" "main" {
 resource "google_compute_disk" "main" {
   for_each = var.volumes
   project  = var.project
+  zone     = var.zone
   name     = "${var.name}-${each.key}"
   type     = each.value.type
   size     = each.value.size
