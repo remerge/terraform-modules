@@ -75,15 +75,6 @@ variable "image" {
   type = string
 }
 
-variable "security" {
-  type = object({
-    runAsUser  = optional(number, 0)
-    runAsGroup = optional(number, 0)
-    fsGroup    = optional(number, 0)
-  })
-  default = {}
-}
-
 variable "env" {
   type    = map(any)
   default = {}

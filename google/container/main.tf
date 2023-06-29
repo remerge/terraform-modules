@@ -46,7 +46,6 @@ module "vm" {
             name      = name
             mountPath = coalesce(value.path, "/${name}")
           }]
-          securityContext = var.security
         }]
         volumes = [for name, value in var.volumes : {
           name = name
