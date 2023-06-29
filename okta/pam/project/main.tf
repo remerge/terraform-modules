@@ -30,8 +30,12 @@ resource "google_secret_manager_secret_version" "okta_enrollment_token" {
 
 data "google_compute_default_service_account" "default" {}
 
+locals {
+  service_account = coalesce(var.service_account, data.google_compute_default_service_account.default.email)
+}
+
 resource "google_secret_manager_secret_iam_member" "okta_enrollment_token" {
   secret_id = google_secret_manager_secret.okta_enrollment_token.secret_id
   role      = "roles/secretmanager.secretAccessor"
-  member    = "serviceAccount:${data.google_compute_default_service_account.default.email}"
+  member    = "serviceAccount:${local.service_account}"
 }

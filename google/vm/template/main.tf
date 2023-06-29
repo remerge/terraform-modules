@@ -1,3 +1,9 @@
+data "google_compute_default_service_account" "default" {}
+
+locals {
+  service_account = coalesce(var.service_account, data.google_compute_default_service_account.default.email)
+}
+
 resource "google_compute_instance_template" "default" {
   name    = "default"
   project = var.project
@@ -63,7 +69,7 @@ resource "google_compute_instance_template" "default" {
   }
 
   service_account {
-    email  = data.google_compute_default_service_account.default.email
+    email  = local.service_account
     scopes = ["cloud-platform"]
   }
 
@@ -75,10 +81,8 @@ resource "google_compute_instance_template" "default" {
   }
 }
 
-data "google_compute_default_service_account" "default" {}
-
 resource "google_project_iam_member" "compute_metric_writer" {
   project = var.project
   role    = "roles/monitoring.metricWriter"
-  member  = "serviceAccount:${data.google_compute_default_service_account.default.email}"
+  member  = "serviceAccount:${local.service_account}"
 }
