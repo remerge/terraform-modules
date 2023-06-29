@@ -14,7 +14,7 @@ resource "google_dns_record_set" "quorum" {
 
 resource "google_dns_managed_zone" "consul" {
   project     = var.project
-  name        = "consul"
+  name        = "${var.name}-consul"
   dns_name    = "${var.name}.consul."
   description = "${var.name}.consul"
   visibility  = "private"
