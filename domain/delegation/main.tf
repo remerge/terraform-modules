@@ -20,10 +20,12 @@ data "google_dns_keys" "public" {
 }
 
 resource "google_project_service" "certificatemanager" {
+  project = var.project
   service = "certificatemanager.googleapis.com"
 }
 
 resource "google_dns_record_set" "caa" {
+  project      = var.project
   managed_zone = google_dns_managed_zone.public.name
   name         = local.dns_name
   type         = "CAA"
@@ -35,8 +37,9 @@ resource "google_dns_record_set" "caa" {
 }
 
 resource "google_certificate_manager_dns_authorization" "default" {
-  name   = "default"
-  domain = local.domain
+  project = var.project
+  name    = "default"
+  domain  = local.domain
 
   depends_on = [
     google_project_service.certificatemanager,
@@ -50,6 +53,7 @@ locals {
 }
 
 resource "google_dns_record_set" "acme" {
+  project      = var.project
   managed_zone = google_dns_managed_zone.public.name
   name         = local.google_acme_record.name
   type         = local.google_acme_record.type
@@ -58,7 +62,8 @@ resource "google_dns_record_set" "acme" {
 }
 
 resource "google_certificate_manager_certificate" "default" {
-  name = "default"
+  project = var.project
+  name    = "default"
 
   managed {
     dns_authorizations = [local.google_dns_auth.id]
@@ -67,13 +72,15 @@ resource "google_certificate_manager_certificate" "default" {
 }
 
 resource "google_certificate_manager_certificate_map" "default" {
-  name = "default"
+  project = var.project
+  name    = "default"
   lifecycle {
     create_before_destroy = true
   }
 }
 
 resource "google_certificate_manager_certificate_map_entry" "default" {
+  project      = var.project
   count        = length(local.google_cert_domains)
   name         = "default-${count.index}"
   hostname     = local.google_cert_domains[count.index]
