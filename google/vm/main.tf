@@ -1,6 +1,7 @@
 locals {
   hostname = coalesce(var.hostname, var.name)
-  fqdn     = try("${local.hostname}.${trimsuffix(var.domain.dns_name, ".")}", local.hostname)
+  domain   = var.domain != null ? trimsuffix(var.domain.dns_name, ".") : "local"
+  fqdn     = "${local.hostname}.${local.domain}"
   metadata = coalesce(var.metadata, local.template.metadata)
   template = data.google_compute_instance_template.main
 }
