@@ -3,5 +3,13 @@ output "name" {
 }
 
 output "domain" {
-  value = google_dns_managed_zone.private
+  value = try(google_dns_managed_zone.private[0].name, null)
+}
+
+output "domain_name" {
+  value = try(google_dns_managed_zone.private[0].description, null)
+}
+
+output "dns_name" {
+  value = try(google_dns_managed_zone.private[0].dns_name, null)
 }
