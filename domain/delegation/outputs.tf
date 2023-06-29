@@ -10,3 +10,7 @@ output "delegation" {
     keys    = data.google_dns_keys.public
   }
 }
+
+output "certificate_map" {
+  value = google_certificate_manager_certificate_map.default
+}
