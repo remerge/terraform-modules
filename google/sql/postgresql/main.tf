@@ -88,7 +88,7 @@ module "netbox-vm" {
   zone = var.zone
 
   role     = "PostgreSQL"
-  platform = "Cloud SQL"
+  platform = "Google Cloud SQL"
   site     = var.site
   cluster  = var.cluster
 
