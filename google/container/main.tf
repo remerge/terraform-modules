@@ -2,7 +2,6 @@ module "vm" {
   source = "../vm"
 
   project = var.project
-  zone    = var.zone
 
   name     = var.name
   hostname = var.hostname
@@ -14,6 +13,7 @@ module "vm" {
   site     = var.site
   cluster  = var.cluster
 
+  compute_zone = var.compute_zone
   machine_type = var.machine_type
 
   disk_image = var.disk_image

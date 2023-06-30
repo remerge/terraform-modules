@@ -20,7 +20,6 @@ resource "google_compute_instance_from_template" "main" {
   source_instance_template = local.template.self_link_unique
 
   project = var.project
-  zone    = var.zone
 
   name     = var.name
   hostname = local.fqdn
@@ -29,6 +28,7 @@ resource "google_compute_instance_from_template" "main" {
     block-project-ssh-keys = true
   })
 
+  zone         = var.compute_zone
   machine_type = var.machine_type
 
   boot_disk {
@@ -54,7 +54,7 @@ resource "google_compute_instance_from_template" "main" {
 resource "google_compute_disk" "main" {
   for_each = var.volumes
   project  = var.project
-  zone     = var.zone
+  zone     = var.compute_zone
   name     = "${var.name}-${each.key}"
   type     = each.value.type
   size     = each.value.size

@@ -2,11 +2,6 @@ variable "project" {
   type = string
 }
 
-variable "zone" {
-  type    = string
-  default = null
-}
-
 variable "name" {
   type = string
 }
@@ -43,6 +38,11 @@ variable "site" {
 
 variable "cluster" {
   type    = any
+  default = null
+}
+
+variable "compute_zone" {
+  type    = string
   default = null
 }
 
