@@ -38,7 +38,7 @@ variable "cluster" {
 
 variable "tags" {
   type    = list(string)
-  default = []
+  default = null
 }
 
 variable "interface" {

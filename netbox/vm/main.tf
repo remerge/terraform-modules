@@ -4,6 +4,7 @@ locals {
   fqdn       = "${local.hostname}.${local.domain}"
   ip_address = var.ip_address != null ? split("/", var.ip_address)[0] : null
   ip_prefix  = var.ip_address != null ? try(split("/", var.ip_address)[1], "32") : null
+  tags       = var.tags != null ? var.tags : [var.project]
 }
 
 resource "netbox_virtual_machine" "main" {
@@ -12,7 +13,7 @@ resource "netbox_virtual_machine" "main" {
   platform_id = data.netbox_platform.main.id
   site_id     = var.site != null ? data.netbox_site.main[0].id : null
   cluster_id  = var.cluster != null ? data.netbox_cluster.main[0].id : null
-  tags        = var.tags
+  tags        = local.tags
 }
 
 data "netbox_device_role" "main" {
@@ -42,7 +43,7 @@ resource "netbox_interface" "main" {
   count              = var.interface != null ? 1 : 0
   virtual_machine_id = netbox_virtual_machine.main.id
   name               = var.interface
-  tags               = var.tags
+  tags               = local.tags
 }
 
 resource "netbox_ip_address" "main" {
@@ -51,7 +52,7 @@ resource "netbox_ip_address" "main" {
   ip_address   = "${local.ip_address}/${local.ip_prefix}"
   dns_name     = local.fqdn
   status       = "active"
-  tags         = var.tags
+  tags         = local.tags
 }
 
 resource "netbox_primary_ip" "main" {

@@ -91,7 +91,6 @@ module "netbox-vm" {
   platform = "Cloud SQL"
   site     = var.site
   cluster  = var.cluster
-  tags     = [var.project]
 
   interface  = "internal"
   ip_address = google_sql_database_instance.main.private_ip_address
