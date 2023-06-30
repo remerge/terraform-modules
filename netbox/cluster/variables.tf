@@ -32,6 +32,6 @@ variable "dns_name" {
 }
 
 variable "dns_records" {
-  type    = map(string)
+  type    = map(list(string))
   default = {}
 }

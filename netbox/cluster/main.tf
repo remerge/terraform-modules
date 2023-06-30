@@ -39,5 +39,5 @@ resource "google_dns_record_set" "main" {
   name         = "${each.key}.${google_dns_managed_zone.private[0].dns_name}"
   type         = "A"
   ttl          = 300
-  rrdatas      = [each.value]
+  rrdatas      = each.value
 }
