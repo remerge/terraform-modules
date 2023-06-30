@@ -83,9 +83,9 @@ module "netbox-vm" {
   source = "../../../netbox/vm"
 
   project = var.project
-  domain  = var.domain
 
   name = coalesce(var.hostname, var.name)
+  zone = var.zone
 
   role     = "PostgreSQL"
   platform = "Cloud SQL"

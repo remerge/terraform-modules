@@ -1,13 +1,8 @@
-locals {
-  domain   = coalesce(var.dns_name, "${var.name}.${var.domain}")
-  dns_name = "${local.domain}."
-}
-
 resource "google_dns_managed_zone" "public" {
   project     = var.project
   name        = "public"
-  dns_name    = local.dns_name
-  description = local.domain
+  dns_name    = "${var.domain}."
+  description = var.domain
 
   dnssec_config {
     state = "on"
@@ -27,7 +22,7 @@ resource "google_project_service" "certificatemanager" {
 resource "google_dns_record_set" "caa" {
   project      = var.project
   managed_zone = google_dns_managed_zone.public.name
-  name         = local.dns_name
+  name         = "${var.domain}."
   type         = "CAA"
   ttl          = 300
   rrdatas = [
@@ -39,7 +34,7 @@ resource "google_dns_record_set" "caa" {
 resource "google_certificate_manager_dns_authorization" "default" {
   project = var.project
   name    = "default"
-  domain  = local.domain
+  domain  = var.domain
 
   depends_on = [
     google_project_service.certificatemanager,
@@ -49,7 +44,7 @@ resource "google_certificate_manager_dns_authorization" "default" {
 locals {
   google_dns_auth     = google_certificate_manager_dns_authorization.default
   google_acme_record  = local.google_dns_auth.dns_resource_record[0]
-  google_cert_domains = [local.domain, "*.${local.domain}"]
+  google_cert_domains = [var.domain, "*.${var.domain}"]
 }
 
 resource "google_dns_record_set" "acme" {

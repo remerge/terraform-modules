@@ -14,16 +14,12 @@ resource "netbox_cluster" "main" {
   tags            = [var.project]
 }
 
-locals {
-  domain = try(coalesce(var.dns_name, "${var.name}.${var.domain}"), null)
-}
-
 resource "google_dns_managed_zone" "private" {
   count       = var.domain != null ? 1 : 0
   project     = var.project
   name        = coalesce(var.legacy_zone_name, var.name)
-  dns_name    = "${local.domain}."
-  description = local.domain
+  dns_name    = "${var.domain}."
+  description = var.domain
   visibility  = "private"
 
   private_visibility_config {

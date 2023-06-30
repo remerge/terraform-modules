@@ -26,11 +26,6 @@ variable "domain" {
   default = null
 }
 
-variable "dns_name" {
-  type    = string
-  default = null
-}
-
 variable "dns_records" {
   type    = map(list(string))
   default = {}

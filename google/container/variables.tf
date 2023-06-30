@@ -11,8 +11,8 @@ variable "hostname" {
   default = null
 }
 
-variable "domain" {
-  type    = string
+variable "zone" {
+  type    = any
   default = null
 }
 

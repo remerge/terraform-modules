@@ -1,12 +1,6 @@
-data "google_dns_managed_zone" "main" {
-  count   = var.domain != null ? 1 : 0
-  project = var.project
-  name    = var.domain
-}
-
 locals {
   hostname = coalesce(var.hostname, var.name)
-  domain   = try(trimsuffix(data.google_dns_managed_zone.main[0].dns_name, "."), "local")
+  domain   = try(trimsuffix(var.zone.dns_name, "."), "local")
   fqdn     = "${local.hostname}.${local.domain}"
   metadata = coalesce(var.metadata, local.template.metadata)
   template = data.google_compute_instance_template.main
@@ -69,9 +63,9 @@ module "netbox-vm" {
   source = "../../netbox/vm"
 
   project = var.project
-  domain  = var.domain
 
   name = local.hostname
+  zone = var.zone
 
   role     = var.role
   platform = var.platform

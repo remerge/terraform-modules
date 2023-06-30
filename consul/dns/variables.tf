@@ -6,8 +6,8 @@ variable "name" {
   type = string
 }
 
-variable "domain" {
-  type = string
+variable "zone" {
+  type = any
 }
 
 variable "network" {

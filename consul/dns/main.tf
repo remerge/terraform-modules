@@ -1,12 +1,7 @@
-data "google_dns_managed_zone" "main" {
-  project = var.project
-  name    = var.domain
-}
-
 resource "google_dns_record_set" "quorum" {
   project      = var.project
-  managed_zone = var.domain
-  name         = "quorum.${data.google_dns_managed_zone.main.dns_name}"
+  managed_zone = var.zone.name
+  name         = "quorum.${var.zone.dns_name}"
   type         = "A"
   ttl          = 300
   rrdatas      = var.targets
