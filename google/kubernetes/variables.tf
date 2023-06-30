@@ -38,3 +38,13 @@ variable "machine_type" {
   type    = string
   default = "e2-medium"
 }
+
+variable "node_min_count" {
+  type    = number
+  default = 0
+}
+
+variable "node_max_count" {
+  type    = number
+  default = 1
+}

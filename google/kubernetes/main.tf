@@ -32,8 +32,8 @@ module "cluster" {
       machine_type    = var.machine_type
       service_account = module.cluster.service_account
 
-      min_count = 0
-      max_count = 2
+      min_count = var.node_min_count
+      max_count = var.node_max_count
 
       enable_secure_boot          = true
       enable_integrity_monitoring = true
