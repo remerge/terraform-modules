@@ -43,12 +43,16 @@ module "cluster" {
   remove_default_node_pool = true
 }
 
+locals {
+  hostname = var.name == var.cluster ? "gke-master" : "gke-master-${module.cluster.name}"
+}
+
 module "netbox-vm" {
   source = "../../netbox/vm"
 
   project = var.project
 
-  name = "gke-master-${module.cluster.name}"
+  name = local.hostname
   zone = var.zone
 
   role     = "Google Kubernetes Engine Master"
