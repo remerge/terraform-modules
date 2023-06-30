@@ -64,6 +64,10 @@ resource "google_certificate_manager_certificate" "default" {
     dns_authorizations = [local.google_dns_auth.id]
     domains            = local.google_cert_domains
   }
+
+  depends_on = [
+    google_project_service.certificatemanager,
+  ]
 }
 
 resource "google_certificate_manager_certificate_map" "default" {
@@ -72,6 +76,10 @@ resource "google_certificate_manager_certificate_map" "default" {
   lifecycle {
     create_before_destroy = true
   }
+
+  depends_on = [
+    google_project_service.certificatemanager,
+  ]
 }
 
 resource "google_certificate_manager_certificate_map_entry" "default" {
