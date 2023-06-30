@@ -30,7 +30,7 @@ module "netbox-vm" {
   zone = var.zone
 
   role     = "Redis"
-  platform = "Google Cloud Memorystore"
+  platform = "Google Cloud"
   site     = var.site
   cluster  = var.cluster
 
