@@ -1,8 +1,10 @@
 locals {
   hostname   = coalesce(var.hostname, var.name)
-  fqdn       = try("${local.hostname}.${trimsuffix(var.domain.dns_name, ".")}", local.hostname)
+  domain     = try(trimsuffix(var.zone.dns_name, "."), "local")
+  fqdn       = "${local.hostname}.${local.domain}"
   ip_address = var.ip_address != null ? split("/", var.ip_address)[0] : null
   ip_prefix  = var.ip_address != null ? try(split("/", var.ip_address)[1], "32") : null
+  tags       = var.tags != null ? var.tags : [var.project]
 }
 
 resource "netbox_virtual_machine" "main" {
@@ -11,7 +13,7 @@ resource "netbox_virtual_machine" "main" {
   platform_id = data.netbox_platform.main.id
   site_id     = var.site != null ? data.netbox_site.main[0].id : null
   cluster_id  = var.cluster != null ? data.netbox_cluster.main[0].id : null
-  tags        = var.tags
+  tags        = local.tags
 }
 
 data "netbox_device_role" "main" {
@@ -41,7 +43,7 @@ resource "netbox_interface" "main" {
   count              = var.interface != null ? 1 : 0
   virtual_machine_id = netbox_virtual_machine.main.id
   name               = var.interface
-  tags               = var.tags
+  tags               = local.tags
 }
 
 resource "netbox_ip_address" "main" {
@@ -50,7 +52,7 @@ resource "netbox_ip_address" "main" {
   ip_address   = "${local.ip_address}/${local.ip_prefix}"
   dns_name     = local.fqdn
   status       = "active"
-  tags         = var.tags
+  tags         = local.tags
 }
 
 resource "netbox_primary_ip" "main" {
@@ -60,9 +62,9 @@ resource "netbox_primary_ip" "main" {
 }
 
 resource "google_dns_record_set" "main" {
-  count        = var.domain != null ? 1 : 0
+  count        = var.zone != null ? 1 : 0
   project      = var.project
-  managed_zone = var.domain.name
+  managed_zone = var.zone.name
   name         = "${local.fqdn}."
   type         = "A"
   ttl          = 300

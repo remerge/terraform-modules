@@ -1,12 +1,14 @@
-data "google_compute_default_service_account" "default" {}
+data "google_compute_default_service_account" "default" {
+  project = var.project
+}
 
 locals {
   service_account = coalesce(var.service_account, data.google_compute_default_service_account.default.email)
 }
 
 resource "google_compute_instance_template" "default" {
-  name    = "default"
   project = var.project
+  name    = "default"
 
   machine_type = "n2d-standard-2"
 

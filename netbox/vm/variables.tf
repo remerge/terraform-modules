@@ -1,6 +1,5 @@
 variable "project" {
-  type    = string
-  default = null
+  type = string
 }
 
 variable "name" {
@@ -12,7 +11,7 @@ variable "hostname" {
   default = null
 }
 
-variable "domain" {
+variable "zone" {
   type    = any
   default = null
 }
@@ -39,7 +38,7 @@ variable "cluster" {
 
 variable "tags" {
   type    = list(string)
-  default = []
+  default = null
 }
 
 variable "interface" {

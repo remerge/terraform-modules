@@ -1,11 +1,11 @@
 resource "google_project_service" "sqladmin" {
+  project = var.project
   service = "sqladmin.googleapis.com"
 }
 
 resource "google_sql_database_instance" "main" {
-  name = var.name
-
   project = var.project
+  name    = var.name
   region  = var.region
 
   database_version = var.database_version
@@ -83,21 +83,22 @@ module "netbox-vm" {
   source = "../../../netbox/vm"
 
   project = var.project
-  domain  = var.domain
 
   name = coalesce(var.hostname, var.name)
+  zone = var.zone
 
   role     = "PostgreSQL"
-  platform = "Cloud SQL"
+  platform = "Google Cloud"
   site     = var.site
   cluster  = var.cluster
-  tags     = [var.project]
 
   interface  = "internal"
   ip_address = google_sql_database_instance.main.private_ip_address
 }
 
-data "google_compute_default_service_account" "default" {}
+data "google_compute_default_service_account" "default" {
+  project = var.project
+}
 
 resource "google_project_iam_member" "compute_default_service_account" {
   role    = "roles/cloudsql.client"

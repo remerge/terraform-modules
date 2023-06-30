@@ -1,11 +1,5 @@
 variable "project" {
-  type    = string
-  default = null
-}
-
-variable "zone" {
-  type    = string
-  default = null
+  type = string
 }
 
 variable "name" {
@@ -17,7 +11,7 @@ variable "hostname" {
   default = null
 }
 
-variable "domain" {
+variable "zone" {
   type    = any
   default = null
 }
@@ -34,7 +28,7 @@ variable "role" {
 
 variable "platform" {
   type    = string
-  default = "Container OS"
+  default = "AlmaLinux"
 }
 
 variable "site" {
@@ -47,6 +41,11 @@ variable "cluster" {
   default = null
 }
 
+variable "compute_zone" {
+  type    = string
+  default = null
+}
+
 variable "machine_type" {
   type    = string
   default = "n2d-standard-2"
@@ -54,7 +53,7 @@ variable "machine_type" {
 
 variable "disk_image" {
   type    = string
-  default = "cos-cloud/cos-stable"
+  default = "almalinux-cloud/almalinux-9"
 }
 
 variable "disk_size" {
@@ -71,11 +70,12 @@ variable "volumes" {
   default = {}
 }
 
-variable "image" {
-  type = string
+variable "metadata" {
+  type    = map(any)
+  default = null
 }
 
-variable "env" {
-  type    = map(any)
-  default = {}
+variable "interface" {
+  type    = string
+  default = null
 }

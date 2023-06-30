@@ -1,12 +1,16 @@
-module "vm" {
-  source = "../vm"
+moved {
+  from = module.vm
+  to   = module.compute
+}
+
+module "compute" {
+  source = "./.."
 
   project = var.project
-  zone    = var.zone
 
   name     = var.name
+  zone     = var.zone
   hostname = var.hostname
-  domain   = var.domain
 
   template = var.template
   role     = var.role
@@ -14,6 +18,7 @@ module "vm" {
   site     = var.site
   cluster  = var.cluster
 
+  compute_zone = var.compute_zone
   machine_type = var.machine_type
 
   disk_image = var.disk_image
