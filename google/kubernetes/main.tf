@@ -60,7 +60,7 @@ module "netbox-vm" {
   site     = var.site
   cluster  = var.cluster
 
-  interface  = "internal"
+  interface  = "endpoint"
   ip_address = module.cluster.endpoint
 }
 
