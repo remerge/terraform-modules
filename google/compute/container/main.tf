@@ -1,5 +1,10 @@
-module "vm" {
-  source = "../vm"
+moved {
+  from = module.vm
+  to   = module.compute
+}
+
+module "compute" {
+  source = "./.."
 
   project = var.project
 
