@@ -1,6 +1,6 @@
 resource "google_dns_managed_zone" "public" {
   project     = var.project
-  name        = "public"
+  name        = coalesce(var.legacy_zone_name, "${var.name}-public")
   dns_name    = "${var.domain}."
   description = var.domain
 
@@ -81,4 +81,13 @@ resource "google_certificate_manager_certificate_map_entry" "default" {
   hostname     = local.google_cert_domains[count.index]
   certificates = [google_certificate_manager_certificate.default.id]
   map          = google_certificate_manager_certificate_map.default.name
+}
+
+resource "google_dns_record_set" "main" {
+  for_each     = var.dns_records
+  managed_zone = google_dns_managed_zone.public.name
+  name         = "${each.key}.${google_dns_managed_zone.public.dns_name}"
+  type         = "A"
+  ttl          = 300
+  rrdatas      = each.value
 }
