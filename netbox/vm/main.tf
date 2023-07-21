@@ -47,12 +47,12 @@ resource "netbox_interface" "main" {
 }
 
 resource "netbox_ip_address" "main" {
-  count        = var.interface != null ? 1 : 0
-  interface_id = netbox_interface.main[0].id
-  ip_address   = "${local.ip_address}/${local.ip_prefix}"
-  dns_name     = local.fqdn
-  status       = "active"
-  tags         = local.tags
+  count                        = var.interface != null ? 1 : 0
+  virtual_machine_interface_id = netbox_interface.main[0].id
+  ip_address                   = "${local.ip_address}/${local.ip_prefix}"
+  dns_name                     = local.fqdn
+  status                       = "active"
+  tags                         = local.tags
 }
 
 resource "netbox_primary_ip" "main" {
