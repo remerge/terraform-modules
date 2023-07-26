@@ -8,7 +8,7 @@ terraform {
     # https://registry.terraform.io/providers/okta/oktapam/latest
     oktapam = {
       source  = "okta/oktapam"
-      version = "~> 0.4"
+      version = "~> 0.3"
     }
   }
 }
