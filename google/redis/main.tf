@@ -37,3 +37,25 @@ module "netbox-vm" {
   interface  = "internal"
   ip_address = google_redis_instance.main.host
 }
+
+resource "google_secret_manager_secret" "auth" {
+  secret_id = "redis-auth-${var.name}"
+  replication {
+    automatic = true
+  }
+}
+
+resource "google_secret_manager_secret_version" "auth" {
+  secret      = google_secret_manager_secret.auth.name
+  secret_data = google_redis_instance.main.auth_string
+}
+
+resource "google_secret_manager_secret_iam_member" "auth" {
+  secret_id = google_secret_manager_secret.auth.id
+  role      = "roles/secretmanager.secretAccessor"
+  member    = "serviceAccount:${data.google_compute_default_service_account.default.email}"
+}
+
+data "google_compute_default_service_account" "default" {
+  project = var.project
+}
