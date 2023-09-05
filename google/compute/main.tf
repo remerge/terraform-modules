@@ -42,6 +42,13 @@ resource "google_compute_instance_from_template" "main" {
     }
   }
 
+  dynamic "scratch_disk" {
+    for_each = range(var.scratch_disk_count)
+    content {
+      interface = "NVME"
+    }
+  }
+
   # checkov:skip=CKV_GCP_32:False positive, keys are blocked
 }
 
