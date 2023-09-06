@@ -79,3 +79,8 @@ variable "interface" {
   type    = string
   default = null
 }
+
+variable "scratch_disk_count" {
+  type    = number
+  default = 0
+}
