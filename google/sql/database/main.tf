@@ -21,7 +21,7 @@ resource "google_secret_manager_secret" "user" {
   project   = var.project
   secret_id = "sql-${var.instance}-user-${var.name}"
   replication {
-    automatic = true
+    auto {}
   }
 }
 

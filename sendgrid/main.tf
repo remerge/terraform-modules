@@ -13,7 +13,7 @@ resource "google_secret_manager_secret" "key" {
   project   = var.project
   secret_id = "sendgrid-key-${var.name}"
   replication {
-    automatic = true
+    auto {}
   }
 }
 
