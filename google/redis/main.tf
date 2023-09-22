@@ -41,7 +41,7 @@ module "netbox-vm" {
 resource "google_secret_manager_secret" "auth" {
   secret_id = "redis-auth-${var.name}"
   replication {
-    automatic = true
+    auto {}
   }
 }
 

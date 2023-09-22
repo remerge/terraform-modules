@@ -20,7 +20,7 @@ resource "google_secret_manager_secret" "okta_enrollment_token" {
   project   = var.project
   secret_id = "okta-enrollment-token"
   replication {
-    automatic = true
+    auto {}
   }
 }
 
