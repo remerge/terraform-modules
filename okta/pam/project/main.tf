@@ -30,11 +30,12 @@ resource "google_secret_manager_secret_version" "okta_enrollment_token" {
 }
 
 data "google_compute_default_service_account" "default" {
+  count   = var.service_account == null ? 1 : 0
   project = var.project
 }
 
 locals {
-  service_account = coalesce(var.service_account, data.google_compute_default_service_account.default.email)
+  service_account = coalesce(var.service_account, try(data.google_compute_default_service_account.default[0].email, null))
 }
 
 resource "google_secret_manager_secret_iam_member" "okta_enrollment_token" {
