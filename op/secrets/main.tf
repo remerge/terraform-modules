@@ -10,6 +10,6 @@ resource "onepassword_item" "secrets" {
   password = each.value
   tags = concat(var.tags, [
     "prefix:${var.prefix}",
-    "workspace:${local.workspace.name}",
+    "workspace:${var.workspace}",
   ])
 }
