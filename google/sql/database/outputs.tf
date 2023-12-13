@@ -9,7 +9,3 @@ output "user" {
 output "password" {
   value = random_password.user.result
 }
-
-output "secret" {
-  value = google_secret_manager_secret.user
-}
