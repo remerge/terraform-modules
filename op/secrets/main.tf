@@ -4,7 +4,7 @@ data "onepassword_vault" "secrets" {
 
 resource "onepassword_item" "secrets" {
   for_each = var.secrets
-  vault    = data.onepassword_vault.secrets.id
+  vault    = data.onepassword_vault.secrets.uuid
   title    = "${var.prefix}_${each.key}"
   category = "password"
   password = each.value
