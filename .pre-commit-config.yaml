@@ -80,6 +80,8 @@ repos:
         name: terraform-fmt
       - id: terraform_validate
         name: terraform-validate
+        args:
+          - --hook-config=--parallelism-limit=1
 
   # https://github.com/bridgecrewio/checkov/tags
   - repo: https://github.com/bridgecrewio/checkov
