@@ -40,14 +40,14 @@ repos:
 
   # https://github.com/igorshubovych/markdownlint-cli/tags
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: "v0.37.0"
+    rev: "v0.39.0"
     hooks:
       - id: markdownlint-fix
         name: markdownlint
 
   # https://github.com/adrienverge/yamllint/tags
   - repo: https://github.com/adrienverge/yamllint
-    rev: "v1.33.0"
+    rev: "v1.35.1"
     hooks:
       - id: yamllint
         entry: yamllint --strict
@@ -74,7 +74,7 @@ repos:
 
   # https://github.com/antonbabenko/pre-commit-terraform/tags
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: "v1.83.6"
+    rev: "v1.87.1"
     hooks:
       - id: terraform_fmt
         name: terraform-fmt
@@ -83,7 +83,7 @@ repos:
 
   # https://github.com/bridgecrewio/checkov/tags
   - repo: https://github.com/bridgecrewio/checkov
-    rev: "3.1.30"
+    rev: "3.2.22"
     hooks:
       - id: checkov
         name: checkov
