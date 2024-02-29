@@ -27,19 +27,10 @@ resource "google_compute_instance_template" "default" {
             "http://metadata.google.internal/computeMetadata/v1/instance/$${1}"
     }
 
-    if [[ ! -e /var/lib/sftd/device.token ]]; then
-        mkdir -p /var/lib/sftd
-        gcloud secrets versions access latest \
-            --secret=okta-enrollment-token \
-            >/var/lib/sftd/enrollment.token
-        chmod 0600 /var/lib/sftd/enrollment.token
-    fi
-
     if [[ ! -e /etc/sft/sftd.yaml ]]; then
         mkdir -p /etc/sft
         cat >/etc/sft/sftd.yaml <<EOF
     ---
-    EnrollmentTokenFile: /var/lib/sftd/enrollment.token
     AccessAddress: "$(metadata network-interfaces/0/ip)"
     CanonicalName: "$(metadata hostname)"
     EOF
