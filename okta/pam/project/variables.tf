@@ -9,12 +9,8 @@ variable "name" {
 variable "groups" {
   type = list(string)
   default = [
+    "owners",
     "On-Call Team",
     "Platform Team",
   ]
-}
-
-variable "service_account" {
-  type    = string
-  default = null
 }
