@@ -14,3 +14,8 @@ variable "tags" {
 variable "secrets" {
   type = map(string)
 }
+
+variable "category" {
+  type    = string
+  default = "password"
+}
