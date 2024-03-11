@@ -42,6 +42,7 @@ data "netbox_cluster" "main" {
 resource "netbox_device_interface" "main" {
   count     = var.interface != null ? 1 : 0
   device_id = netbox_device.main.id
+  type      = "10gbase-t"
   name      = var.interface
   tags      = local.tags
 }

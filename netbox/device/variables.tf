@@ -17,7 +17,7 @@ variable "zone" {
 }
 
 variable "model" {
-  type    = string
+  type = string
 }
 
 variable "role" {
