@@ -16,6 +16,12 @@ resource "netbox_device" "main" {
   cluster_id     = var.cluster != null ? data.netbox_cluster.main[0].id : null
   asset_tag      = var.asset_tag
   tags           = local.tags
+
+  lifecycle {
+    ignore_changes = [
+      serial,
+    ]
+  }
 }
 
 data "netbox_device_role" "main" {
