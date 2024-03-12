@@ -46,6 +46,15 @@ resource "netbox_device_interface" "main" {
   type      = "10gbase-t"
   name      = var.interface
   tags      = local.tags
+
+  lifecycle {
+    ignore_changes = [
+      description,
+      mac_address,
+      mtu,
+      speed,
+    ]
+  }
 }
 
 resource "netbox_ip_address" "main" {
