@@ -1,10 +1,16 @@
+data "leaseweb_dedicated_server_credential" "main" {
+  dedicated_server_id = var.leaseweb_id
+  type                = "REMOTE_MANAGEMENT"
+  username            = "admin"
+}
+
 resource "onepassword_item" "gc" {
   vault    = var.vault
   title    = var.hostname
   category = "login"
 
   username = "admin"
-  password = var.remote_management_password
+  password = data.leaseweb_dedicated_server_credential.main.password
   url      = "https://${var.remote_management_ip}/restgui/start.html"
 
   section {
@@ -57,7 +63,7 @@ resource "onepassword_item" "gc" {
     field {
       label = "password"
       type  = "CONCEALED"
-      value = var.remote_management_password
+      value = data.leaseweb_dedicated_server_credential.main.password
     }
   }
 
