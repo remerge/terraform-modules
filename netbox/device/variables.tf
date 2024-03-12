@@ -40,6 +40,11 @@ variable "cluster" {
   default = null
 }
 
+variable "asset_tag" {
+  type    = string
+  default = null
+}
+
 variable "tags" {
   type    = list(string)
   default = null

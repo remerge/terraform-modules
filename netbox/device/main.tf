@@ -14,6 +14,7 @@ resource "netbox_device" "main" {
   device_type_id = data.netbox_device_type.main.id
   site_id        = var.site != null ? data.netbox_site.main[0].id : null
   cluster_id     = var.cluster != null ? data.netbox_cluster.main[0].id : null
+  asset_tag      = var.asset_tag
   tags           = local.tags
 }
 
