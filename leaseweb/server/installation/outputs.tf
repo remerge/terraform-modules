@@ -1,3 +1,3 @@
 output "os_root_password" {
-  value = random_password.os_root.result
+  value = random_password.main.result
 }
