@@ -11,7 +11,7 @@ data "google_compute_instance_template" "main" {
 }
 
 resource "google_compute_instance_from_template" "main" {
-  source_instance_template = local.template.id
+  source_instance_template = local.template.self_link
 
   project = var.project
 
