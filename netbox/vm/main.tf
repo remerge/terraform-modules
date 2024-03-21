@@ -44,6 +44,15 @@ resource "netbox_interface" "main" {
   virtual_machine_id = netbox_virtual_machine.main.id
   name               = var.interface
   tags               = local.tags
+
+  lifecycle {
+    ignore_changes = [
+      description,
+      mac_address,
+      mtu,
+      speed,
+    ]
+  }
 }
 
 resource "netbox_ip_address" "main" {
