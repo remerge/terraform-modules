@@ -11,7 +11,7 @@ resource "netbox_cluster" "main" {
   name            = var.name
   site_id         = var.site != null ? data.netbox_site.main[0].id : null
   cluster_type_id = data.netbox_cluster_type.main.cluster_type_id
-  tags            = [var.project]
+  tags            = [var.workspace]
 }
 
 resource "google_dns_managed_zone" "private" {
