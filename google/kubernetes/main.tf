@@ -73,5 +73,10 @@ resource "netbox_prefix" "master" {
   status  = "active"
   site_id = data.netbox_site.main.id
   role_id = 16 # provider does not allow lookup yet
-  tags    = [var.project]
+  tags    = data.netbox_cluster.main[0].tags
+}
+
+data "netbox_cluster" "main" {
+  count = var.cluster != null ? 1 : 0
+  name  = var.cluster
 }
