@@ -50,7 +50,6 @@ resource "netbox_interface" "main" {
       description,
       mac_address,
       mtu,
-      speed,
     ]
   }
 }
