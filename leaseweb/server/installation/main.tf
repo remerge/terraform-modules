@@ -60,7 +60,17 @@ AccessAddress: "${var.internal_ip}"
 CanonicalName: "${var.hostname}"
 EOF
 
-dnf config-manager --add-repo https://pkg.scaleft.com/scaleft_yum.repo
+cat > /etc/yum.repos.d/scaleft_yum.repo <<EOF
+[scaleft]
+async = 1
+baseurl = https://dist.scaleft.com/repos/rpm/stable/alma/9/x86_64/
+gpgcheck=1
+gpgkey = https://dist.scaleft.com/GPG-KEY-OktaPAM-2023
+name = ScaleFT
+repo_gpgcheck = 1
+EOF
+
+dnf makecache -y
 update-crypto-policies --set LEGACY
 dnf install -y scaleft-server-tools
 systemctl enable sftd
