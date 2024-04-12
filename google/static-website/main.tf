@@ -14,10 +14,10 @@ resource "google_compute_backend_bucket" "static" {
 }
 
 module "website" {
-  source     = "terraform-google-modules/cloud-storage/google"
-  version    = "5.0.0"
-  project_id = var.project
-  names      = [local.website_domain_name_dashed]
+  source          = "terraform-google-modules/cloud-storage/google"
+  version         = "5.0.0"
+  project_id      = var.project
+  names           = [local.website_domain_name_dashed]
   set_admin_roles = true
   admins = [
     var.storage_admin,
