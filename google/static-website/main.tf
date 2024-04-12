@@ -5,9 +5,7 @@ locals {
 }
 
 resource "google_compute_backend_bucket" "static" {
-  provider = google-beta
-  project  = var.project
-
+  project     = var.project
   name        = "${local.website_domain_name_dashed}-bucket"
   bucket_name = module.website.name
   enable_cdn  = var.enable_cdn
@@ -37,10 +35,7 @@ resource "google_storage_bucket_iam_member" "default" {
 }
 
 resource "google_dns_record_set" "cname" {
-  depends_on = [module.website]
-
-  project = var.domains_project
-
+  project      = var.domains_project
   name         = "${var.website_domain_name}."
   managed_zone = var.dns_managed_zone_name
   type         = "A"
