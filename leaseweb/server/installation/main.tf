@@ -21,7 +21,7 @@ dnf install -y epel-release
 dnf install -y systemd-networkd
 
 cat > /etc/udev/rules.d/10-shared.rules <<EOR
-SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${var.internal_mac}", ATTR{addr_assign_type}=="0", NAME="shared"
+SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${lower(var.internal_mac)}", ATTR{addr_assign_type}=="0", NAME="shared"
 EOR
 
 mkdir -p /etc/systemd/network
