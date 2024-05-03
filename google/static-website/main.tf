@@ -1,13 +1,12 @@
 locals {
-  # We have to use dashes instead of dots in the bucket name, because
-  # that bucket is not a website
   website_domain_name_dashed = replace(var.website_domain_name, ".", "-")
+  bucket_name = var.bucket_name == "" ? "${local.website_domain_name_dashed}-bucket" : "${var.bucket_name}"
 }
 
 resource "google_compute_backend_bucket" "static" {
   project = var.project
 
-  name        = var.bucket_name == "" ? "${local.website_domain_name_dashed}-bucket" : "${var.bucket_name}"
+  name        = local.bucket_name
   bucket_name = module.website.name
   enable_cdn  = var.enable_cdn
 }
@@ -16,7 +15,7 @@ module "website" {
   source          = "terraform-google-modules/cloud-storage/google"
   version         = "5.0.0"
   project_id      = var.project
-  names           = [local.website_domain_name_dashed]
+  names           = [local.bucket_name]
   set_admin_roles = true
   admins          = var.storage_admins
   website = {
