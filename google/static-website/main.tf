@@ -5,8 +5,10 @@ locals {
 }
 
 resource "google_compute_backend_bucket" "static" {
-  project     = var.project
-  name        = "${local.website_domain_name_dashed}-bucket"
+  provider = google-beta
+  project  = var.project
+
+  name        = var.bucket_name == "" ? "${local.website_domain_name_dashed}-bucket" : "${var.bucket_name}"
   bucket_name = module.website.name
   enable_cdn  = var.enable_cdn
 }
@@ -35,7 +37,10 @@ resource "google_storage_bucket_iam_member" "default" {
 }
 
 resource "google_dns_record_set" "cname" {
-  project      = var.domains_project
+  depends_on = [module.website]
+
+  project = var.domains_project
+
   name         = "${var.website_domain_name}."
   managed_zone = var.dns_managed_zone_name
   type         = "A"
@@ -45,5 +50,5 @@ resource "google_dns_record_set" "cname" {
 
 
 output "google_compute_backend_bucket_id" {
-  value = google_compute_backend_bucket.static.id
+  value = google_compute_backend_bucket.static.self_link
 }

@@ -74,3 +74,9 @@ variable "dns_record_ttl" {
   type        = number
   default     = 300
 }
+
+variable "bucket_name" {
+  description = "Website bucket name"
+  type        = string
+  default     = ""
+}
