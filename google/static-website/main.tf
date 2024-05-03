@@ -5,7 +5,7 @@ locals {
 }
 
 resource "google_compute_backend_bucket" "static" {
-  project  = var.project
+  project = var.project
 
   name        = var.bucket_name == "" ? "${local.website_domain_name_dashed}-bucket" : "${var.bucket_name}"
   bucket_name = module.website.name
@@ -18,9 +18,7 @@ module "website" {
   project_id      = var.project
   names           = [local.website_domain_name_dashed]
   set_admin_roles = true
-  admins = [
-    var.storage_admin,
-  ]
+  admins          = var.storage_admin
   website = {
     main_page_suffix = var.index_page
     not_found_page   = var.not_found_page

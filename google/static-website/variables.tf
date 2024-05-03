@@ -5,7 +5,8 @@ variable "project" {
 
 variable "storage_admin" {
   description = "Bucket storage admin"
-  type        = string
+  type        = list(string)
+  default     = []
 }
 
 variable "lb_address" {
