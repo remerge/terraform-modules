@@ -3,8 +3,8 @@ variable "project" {
   type        = string
 }
 
-variable "storage_admin" {
-  description = "Bucket storage admin"
+variable "storage_admins" {
+  description = "List of bucket storage admins"
   type        = list(string)
   default     = []
 }

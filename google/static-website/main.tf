@@ -18,7 +18,7 @@ module "website" {
   project_id      = var.project
   names           = [local.website_domain_name_dashed]
   set_admin_roles = true
-  admins          = var.storage_admin
+  admins          = var.storage_admins
   website = {
     main_page_suffix = var.index_page
     not_found_page   = var.not_found_page
