@@ -5,7 +5,6 @@ locals {
 }
 
 resource "google_compute_backend_bucket" "static" {
-  provider = google-beta
   project  = var.project
 
   name        = var.bucket_name == "" ? "${local.website_domain_name_dashed}-bucket" : "${var.bucket_name}"
