@@ -1,6 +1,6 @@
 locals {
   website_domain_name_dashed = replace(var.website_domain_name, ".", "-")
-  bucket_name = var.bucket_name == "" ? "${local.website_domain_name_dashed}-bucket" : "${var.bucket_name}"
+  bucket_name                = var.bucket_name == "" ? "${local.website_domain_name_dashed}-bucket" : "${var.bucket_name}"
 }
 
 resource "google_compute_backend_bucket" "static" {
