@@ -25,11 +25,6 @@ variable "domains_project" {
   default     = "domains-84b3"
 }
 
-variable "workspace_name" {
-  description = "project workspace name"
-  type        = string
-}
-
 variable "website_domain_name" {
   description = "The name of the website and the Cloud Storage bucket to create (e.g. static.foo.com)."
   type        = string
@@ -38,18 +33,6 @@ variable "website_domain_name" {
 variable "dns_managed_zone_name" {
   description = "The name of the Cloud DNS Managed Zone in which to create the DNS CNAME Record specified in var.website_domain_name. Only used if var.create_dns_entry is true."
   type        = any
-}
-
-variable "website_storage_class" {
-  description = "Storage class of the bucket that will store the static website"
-  type        = string
-  default     = "MULTI_REGIONAL"
-}
-
-variable "ssl_certificate" {
-  description = "SSL certificate self_link. Required if 'enable_ssl' is 'true'."
-  type        = string
-  default     = ""
 }
 
 variable "enable_cdn" {
