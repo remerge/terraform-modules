@@ -57,6 +57,7 @@ resource "netbox_device_interface" "main" {
     ignore_changes = [
       description,
       mac_address,
+      label,
       mtu,
       speed,
     ]
