@@ -91,6 +91,15 @@ resource "google_certificate_manager_certificate_map_entry" "default" {
   map          = google_certificate_manager_certificate_map.default.name
 }
 
+resource "google_dns_record_set" "apex" {
+  count        = length(var.apex_record) > 0 ? 1 : 0
+  managed_zone = google_dns_managed_zone.public.name
+  name         = google_dns_managed_zone.public.dns_name
+  type         = "A"
+  ttl          = 300
+  rrdatas      = var.apex_record
+}
+
 resource "google_dns_record_set" "main" {
   for_each     = var.dns_records
   managed_zone = google_dns_managed_zone.public.name
