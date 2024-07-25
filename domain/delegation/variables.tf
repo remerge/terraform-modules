@@ -10,6 +10,11 @@ variable "domain" {
   type = string
 }
 
+variable "apex_record" {
+  type    = list(string)
+  default = []
+}
+
 variable "dns_records" {
   type    = map(list(string))
   default = {}
