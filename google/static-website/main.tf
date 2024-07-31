@@ -47,7 +47,3 @@ resource "google_dns_record_set" "cname" {
   ttl          = var.dns_record_ttl
   rrdatas      = [var.lb_address]
 }
-
-output "google_compute_backend_bucket" {
-  value = google_compute_backend_bucket.static
-}
