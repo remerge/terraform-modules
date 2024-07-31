@@ -1,6 +1,6 @@
 resource "google_certificate_manager_dns_authorization" "default" {
-  name   = local.website_domain_name_dashed
-  domain = var.website_domain_name
+  name   = local.name_dashed
+  domain = var.name
 }
 
 resource "google_dns_record_set" "acme" {
@@ -13,19 +13,19 @@ resource "google_dns_record_set" "acme" {
 }
 
 resource "google_certificate_manager_certificate" "default" {
-  name = local.website_domain_name_dashed
+  name = local.name_dashed
 
   managed {
     dns_authorizations = [google_certificate_manager_dns_authorization.default.id]
     domains = [
-      var.website_domain_name
+      var.name
     ]
   }
 }
 
 resource "google_certificate_manager_certificate_map_entry" "default" {
-  name         = local.website_domain_name_dashed
+  map          = var.certificate_map
+  name         = local.name_dashed
   hostname     = google_certificate_manager_certificate.default.managed[0].domains[0]
   certificates = [google_certificate_manager_certificate.default.id]
-  map          = var.certificate_map
 }

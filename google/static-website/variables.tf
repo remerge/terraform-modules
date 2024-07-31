@@ -3,14 +3,9 @@ variable "project" {
   type        = string
 }
 
-variable "storage_admins" {
-  description = "List of bucket storage admins"
-  type        = list(string)
-  default     = []
-}
-
+# Load Balancer
 variable "lb_address" {
-  description = "loadbalancer IP address"
+  description = "Load Balancer IP address"
   type        = string
 }
 
@@ -19,26 +14,35 @@ variable "certificate_map" {
   type        = string
 }
 
+# Domain & DNS
 variable "domains_project" {
-  description = "Domains GCP project"
+  description = "The name of the Google Cloud project where DNS zones are managed."
   type        = string
   default     = "domains-84b3"
 }
 
-variable "website_domain_name" {
+variable "name" {
   description = "The name of the website and the Cloud Storage bucket to create (e.g. static.foo.com)."
   type        = string
 }
 
 variable "dns_managed_zone_name" {
-  description = "The name of the Cloud DNS Managed Zone in which to create the DNS CNAME Record specified in var.website_domain_name. Only used if var.create_dns_entry is true."
-  type        = any
+  description = "The name of the Cloud DNS Managed Zone in which to create the DNS CNAME Record specified in var.name."
+  type        = string
+  default     = "remerge-io"
 }
 
-variable "enable_cdn" {
-  description = "Set to `true` to enable cdn on website backend bucket."
-  type        = bool
-  default     = true
+variable "dns_record_ttl" {
+  description = "The time-to-live for the site CNAME record set (seconds)"
+  type        = number
+  default     = 300
+}
+
+# Google Cloud Storage bucket
+variable "bucket_name" {
+  description = "Website bucket name"
+  type        = string
+  default     = ""
 }
 
 variable "index_page" {
@@ -53,14 +57,26 @@ variable "not_found_page" {
   default     = "index.html"
 }
 
-variable "dns_record_ttl" {
-  description = "The time-to-live for the site CNAME record set (seconds)"
-  type        = number
-  default     = 300
+variable "enable_cdn" {
+  description = "Set to `true` to enable cdn on website backend bucket."
+  type        = bool
+  default     = true
 }
 
-variable "bucket_name" {
-  description = "Website bucket name"
+# Workload Identity Federation
+variable "identity_pool" {
+  description = "Google Cloud Workload Identity Pool"
   type        = string
-  default     = ""
+  default     = "projects/413626507216/locations/global/workloadIdentityPools/github-actions-pool"
+}
+
+variable "identity_organization" {
+  description = "GitHub Workload Identity Organization"
+  type        = string
+  default     = "remerge"
+}
+
+variable "identity_repository" {
+  description = "GitHub Workload Identity Repository"
+  type        = string
 }
