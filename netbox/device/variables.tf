@@ -55,6 +55,11 @@ variable "interface" {
   default = null
 }
 
+variable "interface_type" {
+  type    = string
+  default = "10gbase-t"
+}
+
 variable "ip_address" {
   type    = string
   default = null
