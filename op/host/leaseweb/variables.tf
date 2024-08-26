@@ -17,8 +17,3 @@ variable "netbox_id" {
 variable "leaseweb_id" {
   type = string
 }
-
-variable "os_root_password" {
-  type      = string
-  sensitive = true
-}

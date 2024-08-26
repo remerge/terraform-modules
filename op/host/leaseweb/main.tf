@@ -4,6 +4,12 @@ data "leaseweb_dedicated_server_credential" "main" {
   username            = "admin"
 }
 
+data "leaseweb_dedicated_server_credential" "root" {
+  dedicated_server_id = var.leaseweb_id
+  type                = "OPERATING_SYSTEM"
+  username            = "root"
+}
+
 resource "onepassword_item" "gc" {
   vault    = var.vault
   title    = var.hostname
@@ -79,7 +85,7 @@ resource "onepassword_item" "gc" {
     field {
       label = "password"
       type  = "CONCEALED"
-      value = var.os_root_password
+      value = data.leaseweb_dedicated_server_credential.root.password
     }
   }
 }
