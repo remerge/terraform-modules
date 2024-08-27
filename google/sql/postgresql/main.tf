@@ -14,9 +14,9 @@ resource "google_sql_database_instance" "main" {
     tier = var.tier
 
     ip_configuration {
-      require_ssl     = false
-      ipv4_enabled    = false
       private_network = var.network
+      ipv4_enabled    = false
+      ssl_mode        = "ALLOW_UNENCRYPTED_AND_ENCRYPTED"
     }
 
     availability_type = "REGIONAL"
