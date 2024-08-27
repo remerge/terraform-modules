@@ -33,7 +33,7 @@ variable "cluster" {
 
 variable "database_version" {
   type    = string
-  default = "POSTGRES_15"
+  default = "POSTGRES_16"
 }
 
 variable "tier" {
