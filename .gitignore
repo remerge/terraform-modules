@@ -17,6 +17,8 @@
 *.lzma
 *.cab
 *.xar
+*.zst
+*.tzst
 
 # Packing-only formats
 *.iso
@@ -221,10 +223,6 @@ $RECYCLE.BIN/
 ## User settings
 xcuserdata/
 
-## Xcode 8 and earlier
-*.xcscmblueprint
-*.xccheckout
-
 ## https://raw.githubusercontent.com/github/gitignore/main/community/OpenSSL.gitignore
 
 # OpenSSL-related files best not committed
@@ -286,6 +284,9 @@ xcuserdata/
 # Go workspace file
 go.work
 go.work.sum
+
+# env file
+.env
 
 ## https://raw.githubusercontent.com/github/gitignore/main/Node.gitignore
 
@@ -611,6 +612,9 @@ override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
+
+# Ignore transient lock info files created by terraform apply
+.terraform.tfstate.lock.info
 
 # Include override files you do wish to add to version control using negated pattern
 # !example_override.tf
