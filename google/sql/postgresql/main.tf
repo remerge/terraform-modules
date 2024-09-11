@@ -74,6 +74,7 @@ resource "google_sql_database_instance" "main" {
   ]
 
   # checkov:skip=CKV_GCP_6:Private instance can accept unencrypted connections
+  # checkov:skip=CKV_GCP_79:Accept the version specified by the variable
   # checkov:skip=CKV_GCP_110:Don't enable pgAudit
   # checkov:skip=CKV_GCP_111:Don't log SQL statements
   # checkov:skip=CKV2_GCP_13:Don't log SQL statement duration

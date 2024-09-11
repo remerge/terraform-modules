@@ -116,6 +116,9 @@ clean:: pre-commit-clean
 .PHONY: dep
 dep: install
 
+.PHONY: gen
+gen: generate
+
 .PHONY: fmt
 fmt: format
 
