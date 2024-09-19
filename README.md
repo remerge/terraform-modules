@@ -41,10 +41,6 @@ Container OS.
 
 With this module, you can create a default Compute Instance template.
 
-## google/kubernetes
-
-This module allows you to create a private Kubernetes cluster on Google Cloud.
-
 ## google/redis
 
 This module enables you to create a Redis instance using Google Cloud
