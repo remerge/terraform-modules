@@ -15,7 +15,7 @@ resource "leaseweb_dedicated_server_installation" "main" {
 #!/bin/bash
 set -ex
 
-dnf install yum-utils
+dnf install -y yum-utils
 dnf config-manager --set-enabled crb
 dnf install -y epel-release
 dnf install -y systemd-networkd
@@ -49,9 +49,6 @@ update-crypto-policies --set LEGACY
 dnf install -y scaleft-server-tools
 systemctl enable sftd
 
-sgdisk -n 4:0:0 -t 4:bf01 -c 4:data /dev/sda
-partprobe
-
 cat > /etc/udev/rules.d/10-shared.rules <<EOR
 SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${lower(var.internal_mac)}", ATTR{addr_assign_type}=="0", NAME="shared"
 EOR
@@ -73,6 +70,8 @@ systemctl enable systemd-networkd
 cat > /etc/resolv.conf <<EOR
 nameserver 10.164.15.230
 EOR
+
+sgdisk -n 4:0:0 -t 4:bf01 -c 4:data /dev/sda
 
 reboot
 EOT
