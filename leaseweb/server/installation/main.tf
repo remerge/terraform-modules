@@ -20,32 +20,6 @@ dnf config-manager --set-enabled crb
 dnf install -y epel-release
 dnf install -y systemd-networkd
 
-cat > /etc/udev/rules.d/10-shared.rules <<EOR
-SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${lower(var.internal_mac)}", ATTR{addr_assign_type}=="0", NAME="shared"
-EOR
-
-mkdir -p /etc/systemd/network
-cat > /etc/systemd/network/shared.network <<EOR
-[Match]
-MACAddress=${var.internal_mac}
-
-[Network]
-Address=${var.internal_ip}/16
-Gateway=10.32.0.1
-DNS=10.164.15.230
-EOR
-
-nmcli con down public
-systemctl stop NetworkManager
-systemctl start systemd-networkd
-
-systemctl disable NetworkManager
-systemctl enable systemd-networkd
-
-cat > /etc/resolv.conf <<EOR
-nameserver 10.164.15.230
-EOR
-
 mkdir -p /var/lib/sftd
 chmod 700 /var/lib/sftd
 echo "${var.enrollment_token}" > /var/lib/sftd/enrollment.token
@@ -77,6 +51,28 @@ systemctl enable sftd
 
 sgdisk -n 4:0:0 -t 4:bf01 -c 4:data /dev/sda
 partprobe
+
+cat > /etc/udev/rules.d/10-shared.rules <<EOR
+SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${lower(var.internal_mac)}", ATTR{addr_assign_type}=="0", NAME="shared"
+EOR
+
+mkdir -p /etc/systemd/network
+cat > /etc/systemd/network/shared.network <<EOR
+[Match]
+MACAddress=${var.internal_mac}
+
+[Network]
+Address=${var.internal_ip}/16
+Gateway=10.32.0.1
+DNS=10.164.15.230
+EOR
+
+systemctl disable NetworkManager
+systemctl enable systemd-networkd
+
+cat > /etc/resolv.conf <<EOR
+nameserver 10.164.15.230
+EOR
 
 reboot
 EOT
