@@ -71,7 +71,7 @@ cat > /etc/resolv.conf <<EOR
 nameserver 10.164.15.230
 EOR
 
-sgdisk -n 4:0:0 -t 4:bf01 -c 4:data /dev/sda
+sgdisk -n 4:0:0 -t 4:8300 -c 4:data /dev/sda
 
 reboot
 EOT
