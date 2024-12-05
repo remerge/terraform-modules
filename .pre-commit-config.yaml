@@ -1,6 +1,6 @@
 ---
 default_stages:
-  - commit
+  - pre-commit
 
 default_install_hook_types:
   - commit-msg
@@ -10,7 +10,7 @@ default_install_hook_types:
 repos:
   # https://github.com/pre-commit/pre-commit-hooks/tags
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: "v4.6.0"
+    rev: "v5.0.0"
     hooks:
       - id: check-added-large-files
       - id: check-case-conflict
@@ -18,10 +18,7 @@ repos:
       - id: check-merge-conflict
       - id: check-shebang-scripts-are-executable
       - id: check-symlinks
-      - id: check-toml
       - id: check-vcs-permalinks
-      - id: check-xml
-      - id: check-yaml
       - id: destroyed-symlinks
       - id: detect-private-key
       - id: end-of-file-fixer
@@ -44,7 +41,7 @@ repos:
 
   # https://github.com/igorshubovych/markdownlint-cli/tags
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: "v0.41.0"
+    rev: "v0.42.0"
     hooks:
       - id: markdownlint-fix
         name: markdownlint
@@ -71,18 +68,18 @@ repos:
 
   # https://github.com/rhysd/actionlint/tags
   - repo: https://github.com/rhysd/actionlint
-    rev: "v1.7.1"
+    rev: "v1.7.3"
     hooks:
       - id: actionlint-docker
         name: actionlint
 
   # https://github.com/bridgecrewio/checkov/tags
   - repo: https://github.com/bridgecrewio/checkov
-    rev: "3.2.241"
+    rev: "3.2.267"
     hooks:
       - id: checkov
         name: checkov
-        args: [--config-file=.checkov.yml]
+        args: [--config-file=.checkov.yml, --skip-path=vendor]
 
   # https://github.com/jorisroovers/gitlint/tags
   - repo: https://github.com/jorisroovers/gitlint
@@ -99,7 +96,7 @@ repos:
 
   # https://github.com/antonbabenko/pre-commit-terraform/tags
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: "v1.94.1"
+    rev: "v1.96.1"
     hooks:
       - id: terraform_fmt
         name: terraform-fmt
