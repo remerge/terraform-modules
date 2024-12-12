@@ -103,7 +103,7 @@ EOT
 
   lifecycle {
     ignore_changes = [
-      random_password.main,
+      password,
       post_install_script,
     ]
     prevent_destroy = true
