@@ -1,6 +1,6 @@
 resource "random_password" "main" {
   length  = 16
-  special = false
+  special = true
 }
 
 resource "leaseweb_dedicated_server_installation" "main" {
