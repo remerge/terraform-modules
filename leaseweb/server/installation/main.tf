@@ -1,6 +1,7 @@
 resource "random_password" "main" {
-  length  = 16
-  special = true
+  length           = 16
+  special          = true
+  override_special = "@,.^%-_~"
 }
 
 resource "leaseweb_dedicated_server_installation" "main" {
