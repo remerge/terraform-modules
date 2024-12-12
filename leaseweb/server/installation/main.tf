@@ -103,7 +103,9 @@ EOT
 
   lifecycle {
     ignore_changes = [
+      password,
       post_install_script,
     ]
+    prevent_destroy = true
   }
 }
