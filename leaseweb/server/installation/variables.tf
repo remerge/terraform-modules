@@ -11,6 +11,11 @@ variable "raid_type" {
   default = "HW"
 }
 
+variable "device" {
+  type    = string
+  default = "SATA_SAS"
+}
+
 variable "internal_mac" {
   type = string
 }

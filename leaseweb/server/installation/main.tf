@@ -81,7 +81,7 @@ EOT
     number_of_disks = 2
   }
 
-  device = "SATA_SAS"
+  device = var.device
 
   partition {
     mountpoint = "/boot"
