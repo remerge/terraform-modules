@@ -102,7 +102,7 @@ EOT
   }
 
   timeouts {
-    create = "30m"
+    create = "60m"
   }
 
   lifecycle {
