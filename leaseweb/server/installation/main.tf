@@ -61,24 +61,22 @@ MACAddress=${var.internal_mac}
 
 [Network]
 Address=${var.internal_ip}/16
-Gateway=10.32.0.1
-DNS=10.164.15.230
+Gateway=${var.internal_gateway}
+DNS=${var.internal_dns}
 EOR
 
 systemctl disable NetworkManager
 systemctl enable systemd-networkd
 
 cat > /etc/resolv.conf <<EOR
-nameserver 10.164.15.230
+nameserver ${var.internal_dns}
 EOR
-
-sgdisk -n 4:0:0 -t 4:8300 -c 4:data /dev/sda
 
 reboot
 EOT
 
   raid {
-    type            = "HW"
+    type            = var.raid_type
     level           = 1
     number_of_disks = 2
   }
@@ -97,15 +95,21 @@ EOT
     size       = 20480
   }
 
+  partition {
+    mountpoint = "/data"
+    filesystem = "ext4"
+    size       = "*"
+  }
+
   timeouts {
     create = "30m"
   }
 
   lifecycle {
+    prevent_destroy = true
     ignore_changes = [
       password,
       post_install_script,
     ]
-    prevent_destroy = true
   }
 }
