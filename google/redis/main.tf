@@ -7,7 +7,7 @@ resource "google_redis_instance" "main" {
   region  = var.region
   name    = var.name
 
-  memory_size_gb = 1
+  memory_size_gb = 2
 
   authorized_network = var.network
   connect_mode       = "PRIVATE_SERVICE_ACCESS"
