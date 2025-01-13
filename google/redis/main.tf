@@ -7,6 +7,8 @@ resource "google_redis_instance" "main" {
   region  = var.region
   name    = var.name
 
+  redis_version  = "REDIS_7_2"
+
   memory_size_gb = 2
 
   authorized_network = var.network
