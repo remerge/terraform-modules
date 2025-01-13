@@ -8,7 +8,7 @@ terraform {
     # https://registry.terraform.io/providers/LeaseWeb/leaseweb/latest
     leaseweb = {
       source  = "LeaseWeb/leaseweb"
-      version = "~> 0.4"
+      version = "~> 1.20"
     }
   }
 }
