@@ -75,7 +75,7 @@ EOR
 reboot
 EOT
 
-  raid {
+  raid = {
     type            = var.raid_type
     level           = 1
     number_of_disks = 2
@@ -83,27 +83,23 @@ EOT
 
   device = var.device
 
-  partition {
-    mountpoint = "/boot"
-    filesystem = "ext2"
-    size       = 1024
-  }
-
-  partition {
-    mountpoint = "/"
-    filesystem = "ext4"
-    size       = 20480
-  }
-
-  partition {
-    mountpoint = "/data"
-    filesystem = "ext4"
-    size       = "*"
-  }
-
-  timeouts {
-    create = "60m"
-  }
+  partitions = [
+    {
+      mountpoint = "/boot"
+      filesystem = "ext2"
+      size       = 1024
+    },
+    {
+      mountpoint = "/"
+      filesystem = "ext4"
+      size       = 20480
+    },
+    {
+      mountpoint = "/data"
+      filesystem = "ext4"
+      size       = "*"
+    }
+  ]
 
   lifecycle {
     prevent_destroy = true
