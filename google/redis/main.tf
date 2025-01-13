@@ -14,6 +14,11 @@ resource "google_redis_instance" "main" {
 
   auth_enabled = true
 
+  persistence_config {
+    persistence_mode    = "RDB"
+    rdb_snapshot_period = "ONE_HOUR"
+  }
+
   depends_on = [
     google_project_service.redis,
   ]
