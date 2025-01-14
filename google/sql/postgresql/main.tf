@@ -90,7 +90,7 @@ module "netbox-vm" {
 
   role     = "PostgreSQL"
   platform = "Google Cloud"
-  site     = coalesce(var.site, "Google Cloud ${google_sql_database_instance.main.region}"
+  site     = coalesce(var.site, "Google Cloud ${google_sql_database_instance.main.region}")
   cluster  = var.cluster
 
   interface  = "internal"
