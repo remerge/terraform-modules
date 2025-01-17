@@ -7,12 +7,19 @@ resource "google_redis_instance" "main" {
   region  = var.region
   name    = var.name
 
-  memory_size_gb = 1
+  redis_version = var.version
+
+  memory_size_gb = var.memory
 
   authorized_network = var.network
   connect_mode       = "PRIVATE_SERVICE_ACCESS"
 
   auth_enabled = true
+
+  persistence_config {
+    persistence_mode    = var.persistence_mode
+    rdb_snapshot_period = var.persistence_period
+  }
 
   depends_on = [
     google_project_service.redis,
