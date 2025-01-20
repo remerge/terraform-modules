@@ -6,11 +6,6 @@ variable "name" {
   type = string
 }
 
-variable "hostname" {
-  type    = string
-  default = null
-}
-
 variable "zone" {
   type    = any
   default = null

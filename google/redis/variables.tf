@@ -42,15 +42,15 @@ variable "redis_version" {
 
 variable "memory" {
   type    = number
-  default = 2
+  default = 1
 }
 
 variable "persistence_mode" {
   type    = string
-  default = "RDB"
+  default = "DISABLED"
 }
 
 variable "persistence_period" {
   type    = string
-  default = "ONE_HOUR"
+  default = null
 }

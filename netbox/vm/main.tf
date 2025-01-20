@@ -1,7 +1,6 @@
 locals {
-  hostname   = coalesce(var.hostname, var.name)
   domain     = try(trimsuffix(var.zone.dns_name, "."), "local")
-  fqdn       = "${local.hostname}.${local.domain}"
+  fqdn       = "${var.name}.${local.domain}"
   ip_address = var.ip_address != null ? split("/", var.ip_address)[0] : null
   ip_prefix  = var.ip_address != null ? try(split("/", var.ip_address)[1], "32") : null
   tags       = var.tags != null ? var.tags : try(data.netbox_cluster.main[0].tags, [])
