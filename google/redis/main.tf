@@ -7,7 +7,7 @@ resource "google_redis_instance" "main" {
   region  = var.region
   name    = var.name
 
-  redis_version = var.version
+  redis_version = var.redis_version
 
   memory_size_gb = var.memory
 

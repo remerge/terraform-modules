@@ -35,7 +35,7 @@ variable "network" {
   type = string
 }
 
-variable "version" {
+variable "redis_version" {
   type    = string
   default = "REDIS_7_2"
 }
