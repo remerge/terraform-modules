@@ -12,7 +12,7 @@ resource "leaseweb_dedicated_server_installation" "main" {
   password = random_password.main.result
   timezone = "UTC"
 
-  post_install_script = <<-EOT
+  post_install_script = base64encode(<<-EOT
 #!/bin/bash
 set -ex
 
@@ -74,6 +74,7 @@ EOR
 
 reboot
 EOT
+  )
 
   raid = {
     type            = var.raid_type
