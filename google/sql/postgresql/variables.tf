@@ -8,7 +8,8 @@ variable "region" {
 }
 
 variable "name" {
-  type = string
+  type    = string
+  default = "postgres"
 }
 
 variable "hostname" {
@@ -33,7 +34,7 @@ variable "cluster" {
 
 variable "database_version" {
   type    = string
-  default = "POSTGRES_16"
+  default = "POSTGRES_17"
 }
 
 variable "tier" {
