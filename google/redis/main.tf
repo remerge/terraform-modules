@@ -21,6 +21,10 @@ resource "google_redis_instance" "main" {
     rdb_snapshot_period = var.persistence_period
   }
 
+  redis_configs = {
+    maxmemory_policy = var.maxmemory_policy
+  }
+
   depends_on = [
     google_project_service.redis,
   ]

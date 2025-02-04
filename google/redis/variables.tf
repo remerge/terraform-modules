@@ -54,3 +54,8 @@ variable "persistence_period" {
   type    = string
   default = null
 }
+
+variable "maxmemory_policy" {
+  type    = string
+  default = "volatile-lru"
+}
