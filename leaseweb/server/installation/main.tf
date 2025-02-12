@@ -2,6 +2,13 @@ resource "random_password" "main" {
   length           = 16
   special          = true
   override_special = "@,.^%-_~"
+
+  lifecycle {
+    ignore_changes = [
+      special,
+      override_special,
+    ]
+  }
 }
 
 resource "leaseweb_dedicated_server_installation" "main" {
@@ -12,7 +19,7 @@ resource "leaseweb_dedicated_server_installation" "main" {
   password = random_password.main.result
   timezone = "UTC"
 
-  post_install_script = base64encode(<<-EOT
+  post_install_script = <<-EOT
 #!/bin/bash
 set -ex
 
@@ -74,7 +81,6 @@ EOR
 
 reboot
 EOT
-  )
 
   raid = {
     type            = var.raid_type
@@ -106,6 +112,7 @@ EOT
     prevent_destroy = true
     ignore_changes = [
       password,
+      partitions,
       post_install_script,
     ]
   }
