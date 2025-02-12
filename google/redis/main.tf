@@ -22,7 +22,7 @@ resource "google_redis_instance" "main" {
   }
 
   redis_configs = {
-    maxmemory_policy = var.maxmemory_policy
+    maxmemory-policy = var.maxmemory_policy
   }
 
   depends_on = [
