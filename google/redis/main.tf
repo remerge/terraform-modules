@@ -38,6 +38,7 @@ module "netbox-vm" {
   project = var.project
 
   name = var.name
+  tags = [var.workspace]
 
   role     = "Redis"
   platform = "Google Cloud"

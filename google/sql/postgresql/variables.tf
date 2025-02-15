@@ -1,3 +1,7 @@
+variable "workspace" {
+  type = string
+}
+
 variable "project" {
   type = string
 }
