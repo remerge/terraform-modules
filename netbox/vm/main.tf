@@ -1,13 +1,12 @@
 locals {
-  domain     = try(trimsuffix(var.zone.dns_name, "."), "local")
-  fqdn       = "${var.name}.${local.domain}"
+  fqdn       = var.zone != null ? "${var.name}.${trimsuffix(var.zone.dns_name, ".")}" : null
   ip_address = var.ip_address != null ? split("/", var.ip_address)[0] : null
   ip_prefix  = var.ip_address != null ? try(split("/", var.ip_address)[1], "32") : null
   tags       = var.tags != null ? var.tags : try(data.netbox_cluster.main[0].tags, [])
 }
 
 resource "netbox_virtual_machine" "main" {
-  name        = local.fqdn
+  name        = var.zone != null ? local.fqdn : var.name
   role_id     = data.netbox_device_role.main.id
   platform_id = data.netbox_platform.main.id
   site_id     = var.site != null ? data.netbox_site.main[0].id : null

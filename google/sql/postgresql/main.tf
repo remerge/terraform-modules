@@ -85,13 +85,12 @@ module "netbox-vm" {
 
   project = var.project
 
-  name = coalesce(var.hostname, var.name)
-  zone = var.zone
+  name = var.name
+  tags = [var.workspace]
 
   role     = "PostgreSQL"
   platform = "Google Cloud"
-  site     = coalesce(var.site, "Google Cloud ${google_sql_database_instance.main.region}")
-  cluster  = var.cluster
+  site     = "Google Cloud ${google_sql_database_instance.main.region}"
 
   interface  = "internal"
   ip_address = google_sql_database_instance.main.private_ip_address

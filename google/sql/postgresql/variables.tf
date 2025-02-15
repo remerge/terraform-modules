@@ -1,3 +1,7 @@
+variable "workspace" {
+  type = string
+}
+
 variable "project" {
   type = string
 }
@@ -10,26 +14,6 @@ variable "region" {
 variable "name" {
   type    = string
   default = "postgres"
-}
-
-variable "hostname" {
-  type    = string
-  default = null
-}
-
-variable "zone" {
-  type    = any
-  default = null
-}
-
-variable "site" {
-  type    = any
-  default = null
-}
-
-variable "cluster" {
-  type    = any
-  default = null
 }
 
 variable "database_version" {

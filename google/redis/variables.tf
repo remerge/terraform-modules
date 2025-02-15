@@ -1,3 +1,7 @@
+variable "workspace" {
+  type = string
+}
+
 variable "project" {
   type = string
 }
@@ -8,27 +12,8 @@ variable "region" {
 }
 
 variable "name" {
-  type = string
-}
-
-variable "hostname" {
   type    = string
-  default = null
-}
-
-variable "zone" {
-  type    = any
-  default = null
-}
-
-variable "site" {
-  type    = any
-  default = null
-}
-
-variable "cluster" {
-  type    = any
-  default = null
+  default = "redis"
 }
 
 variable "network" {
