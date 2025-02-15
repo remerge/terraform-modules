@@ -16,11 +16,6 @@ variable "name" {
   default = "redis"
 }
 
-variable "site" {
-  type    = any
-  default = null
-}
-
 variable "network" {
   type = string
 }

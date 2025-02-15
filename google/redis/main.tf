@@ -42,7 +42,7 @@ module "netbox-vm" {
 
   role     = "Redis"
   platform = "Google Cloud"
-  site     = coalesce(var.site, "Google Cloud ${google_redis_instance.main.region}")
+  site     = "Google Cloud ${google_redis_instance.main.region}"
 
   interface  = "internal"
   ip_address = google_redis_instance.main.host

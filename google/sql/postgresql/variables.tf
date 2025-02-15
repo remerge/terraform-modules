@@ -16,11 +16,6 @@ variable "name" {
   default = "postgres"
 }
 
-variable "site" {
-  type    = any
-  default = null
-}
-
 variable "database_version" {
   type    = string
   default = "POSTGRES_17"
