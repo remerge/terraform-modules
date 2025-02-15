@@ -8,25 +8,11 @@ variable "region" {
 }
 
 variable "name" {
-  type = string
-}
-
-variable "hostname" {
   type    = string
-  default = null
-}
-
-variable "zone" {
-  type    = any
-  default = null
+  default = "redis"
 }
 
 variable "site" {
-  type    = any
-  default = null
-}
-
-variable "cluster" {
   type    = any
   default = null
 }

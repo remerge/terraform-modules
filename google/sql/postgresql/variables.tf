@@ -12,22 +12,7 @@ variable "name" {
   default = "postgres"
 }
 
-variable "hostname" {
-  type    = string
-  default = null
-}
-
-variable "zone" {
-  type    = any
-  default = null
-}
-
 variable "site" {
-  type    = any
-  default = null
-}
-
-variable "cluster" {
   type    = any
   default = null
 }
