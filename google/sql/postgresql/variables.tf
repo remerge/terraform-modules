@@ -36,3 +36,8 @@ variable "backup" {
   })
   default = {}
 }
+
+variable "database_flags" {
+  type    = map(any)
+  default = {}
+}

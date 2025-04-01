@@ -76,6 +76,14 @@ resource "google_sql_database_instance" "main" {
       value = "error"
     }
 
+    dynamic "database_flags" {
+      for_each = var.database_flags
+      content {
+        name  = database_flags.key
+        value = database_flags.value
+      }
+    }
+
   }
 
   depends_on = [
