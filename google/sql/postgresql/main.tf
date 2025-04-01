@@ -15,7 +15,7 @@ resource "google_sql_database_instance" "main" {
   region  = var.region
 
   database_version = var.database_version
-  root_pwd         = random_password.root.result
+  root_password    = random_password.root.result
 
 
   settings {
