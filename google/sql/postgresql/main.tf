@@ -3,12 +3,20 @@ resource "google_project_service" "sqladmin" {
   service = "sqladmin.googleapis.com"
 }
 
+resource "random_password" "root" {
+  length           = 32
+  special          = true
+  override_special = "_%@"
+}
+
 resource "google_sql_database_instance" "main" {
   project = var.project
   name    = var.name
   region  = var.region
 
   database_version = var.database_version
+  root_pwd         = random_password.root.result
+
 
   settings {
     tier = var.tier
@@ -67,6 +75,7 @@ resource "google_sql_database_instance" "main" {
       name  = "log_min_error_statement"
       value = "error"
     }
+
   }
 
   depends_on = [
