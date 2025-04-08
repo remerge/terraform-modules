@@ -17,7 +17,6 @@ resource "google_sql_database_instance" "main" {
   database_version = var.database_version
   root_password    = random_password.root.result
 
-
   settings {
     tier = var.tier
 
