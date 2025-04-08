@@ -4,5 +4,4 @@ output "instance" {
 
 output "root_password" {
   value = random_password.root.result
-
 }
