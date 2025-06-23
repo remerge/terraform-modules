@@ -5,7 +5,7 @@ locals {
 
 module "website" {
   source  = "terraform-google-modules/cloud-storage/google"
-  version = "9.0.2"
+  version = "11.0.0"
 
   project_id = var.project
   names = [
