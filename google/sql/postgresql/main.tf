@@ -22,7 +22,7 @@ resource "google_sql_database_instance" "main" {
 
     ip_configuration {
       private_network = var.network
-      ipv4_enabled    = false
+      ipv4_enabled    = var.ipv4_enabled
       ssl_mode        = "ALLOW_UNENCRYPTED_AND_ENCRYPTED"
     }
 
