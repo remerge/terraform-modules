@@ -41,3 +41,8 @@ variable "database_flags" {
   type    = map(any)
   default = {}
 }
+
+variable "ipv4_enabled" {
+  type    = bool
+  default = false
+}
