@@ -16,3 +16,7 @@ variable "okta_discovery_url" {
   type    = string
   default = "https://remerge.okta.com"
 }
+
+variable "secrets_vault_uuid" {
+  type = string
+}

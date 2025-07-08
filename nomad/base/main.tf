@@ -14,7 +14,7 @@ resource "nomad_node_pool" "default" {
 }
 
 data "onepassword_item" "nomad_oidc_client" {
-  vault = data.onepassword_vault.secrets.uuid
+  vault = var.secrets_vault_uuid
   title = "nomad_oidc_client"
 }
 
