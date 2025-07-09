@@ -1,3 +1,7 @@
+data "onepassword_vault" "secrets" {
+  name = var.onepassword_secrets_vault_name
+}
+
 resource "nomad_namespace" "default" {
   name        = "default"
   description = "Default shared namespace"
@@ -14,7 +18,7 @@ resource "nomad_node_pool" "default" {
 }
 
 data "onepassword_item" "nomad_oidc_client" {
-  vault = var.secrets_vault_uuid
+  vault = data.onepassword_vault.secrets.uuid
   title = "nomad_oidc_client"
 }
 
