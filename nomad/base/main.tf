@@ -36,7 +36,7 @@ resource "nomad_acl_auth_method" "okta" {
     allowed_redirect_uris = [
       "http://localhost:4649/oidc/callback",
       "http://nomad.service.${var.cluster}.consul:4646/ui/settings/tokens",
-      "http://nomad.app.${var.cluster}.rmge.net/ui/settings/tokens",
+      "http://nomad.${var.cluster}.rmge.net/ui/settings/tokens",
     ]
 
     claim_mappings = {

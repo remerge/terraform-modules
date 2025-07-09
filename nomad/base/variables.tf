@@ -17,6 +17,7 @@ variable "okta_discovery_url" {
   default = "https://remerge.okta.com"
 }
 
-variable "secrets_vault_uuid" {
-  type = string
+variable "onepassword_secrets_vault_name" {
+  type    = string
+  default = "secrets"
 }
