@@ -8,7 +8,7 @@ terraform {
     # https://registry.terraform.io/providers/1Password/onepassword/latest
     onepassword = {
       source  = "1Password/onepassword"
-      version = "~> 2.1.2"
+      version = "~> 2.1"
     }
   }
 }
