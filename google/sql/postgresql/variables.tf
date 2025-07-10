@@ -46,3 +46,12 @@ variable "ipv4_enabled" {
   type    = bool
   default = false
 }
+
+variable "authorized_networks" {
+  description = "List of authorized networks for public access. Each object must have 'name' and 'value' (subnet/CIDR)."
+  type = list(object({
+    name  = string
+    value = string
+  }))
+  default = []
+}
