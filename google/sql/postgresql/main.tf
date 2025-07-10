@@ -23,7 +23,14 @@ resource "google_sql_database_instance" "main" {
     ip_configuration {
       private_network = var.network
       ipv4_enabled    = var.ipv4_enabled
-      ssl_mode        = "ALLOW_UNENCRYPTED_AND_ENCRYPTED"
+      ssl_mode        = var.ipv4_enabled ? "ENCRYPTED_ONLY" : "ALLOW_UNENCRYPTED_AND_ENCRYPTED"
+      dynamic "authorized_networks" {
+        for_each = var.ipv4_enabled ? var.authorized_networks : []
+        content {
+          name  = authorized_networks.value.name
+          value = authorized_networks.value.value
+        }
+      }
     }
 
     availability_type = "REGIONAL"
