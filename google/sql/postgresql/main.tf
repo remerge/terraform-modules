@@ -23,7 +23,7 @@ resource "google_sql_database_instance" "main" {
     ip_configuration {
       private_network = var.network
       ipv4_enabled    = var.ipv4_enabled
-      ssl_mode        = !var.ipv4_enabled ? "ALLOW_UNENCRYPTED_AND_ENCRYPTED" : "ENCRYPTED_ONLY"
+      ssl_mode        = var.ipv4_enabled ? "ENCRYPTED_ONLY" : "ALLOW_UNENCRYPTED_AND_ENCRYPTED"
       dynamic "authorized_networks" {
         for_each = var.ipv4_enabled ? var.authorized_networks : []
         content {
