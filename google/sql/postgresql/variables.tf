@@ -11,11 +11,6 @@ variable "region" {
   default = null
 }
 
-variable "name" {
-  type    = string
-  default = "postgres"
-}
-
 variable "database_version" {
   type    = string
   default = "POSTGRES_17"
