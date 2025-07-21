@@ -11,7 +11,6 @@ resource "random_password" "root" {
 
 resource "google_sql_database_instance" "main" {
   project = var.project
-  name    = var.name
   region  = var.region
 
   database_version = var.database_version
@@ -108,7 +107,7 @@ module "netbox-vm" {
 
   project = var.project
 
-  name = var.name
+  name = google_sql_database_instance.main.name
   tags = [var.workspace]
 
   role     = "PostgreSQL"
