@@ -189,7 +189,7 @@ resource "nomad_acl_token" "github_actions" {
 }
 
 module "op_github_actions" {
-  source    = "github.com/remerge/terraform-modules//op/secrets?ref=v0.23.0"
+  source    = "../../op/secrets"
   workspace = var.workspace
   prefix    = "nomad"
   secrets = {
