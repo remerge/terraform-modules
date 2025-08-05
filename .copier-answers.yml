@@ -1,6 +1,6 @@
 ---
 # Changes here will be overwritten by Copier
-_commit: v2.42.0
+_commit: v2.57.0
 _src_path: gh:remerge/template
 project_id: terraform-modules
 project_license: apache-2.0
