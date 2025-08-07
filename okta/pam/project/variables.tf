@@ -11,6 +11,7 @@ variable "groups" {
   default = [
     "owners",
     "On-Call Team",
-    "Platform Team",
+    "Core Platform Team",
+    "Data Platform Team",
   ]
 }
