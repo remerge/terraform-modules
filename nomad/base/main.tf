@@ -137,11 +137,30 @@ resource "nomad_acl_role" "root" {
   }
 }
 
-resource "nomad_acl_binding_rule" "platform" {
+moved {
+  from = nomad_acl_binding_rule.platform
+  to   = nomad_acl_binding_rule.core
+}
+
+resource "nomad_acl_binding_rule" "core" {
   auth_method = nomad_acl_auth_method.okta.name
   bind_type   = "role"
   bind_name   = nomad_acl_role.root.name
-  selector    = "\"Platform Team\" in list.groups"
+  selector    = "\"Core Platform Team\" in list.groups"
+}
+
+resource "nomad_acl_binding_rule" "data" {
+  auth_method = nomad_acl_auth_method.okta.name
+  bind_type   = "role"
+  bind_name   = nomad_acl_role.root.name
+  selector    = "\"Data Platform Team\" in list.groups"
+}
+
+resource "nomad_acl_binding_rule" "oncall" {
+  auth_method = nomad_acl_auth_method.okta.name
+  bind_type   = "role"
+  bind_name   = nomad_acl_role.root.name
+  selector    = "\"On-Call Team\" in list.groups"
 }
 
 resource "nomad_acl_policy" "github_actions" {
