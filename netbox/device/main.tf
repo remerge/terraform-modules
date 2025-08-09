@@ -56,7 +56,6 @@ resource "netbox_device_interface" "main" {
   lifecycle {
     ignore_changes = [
       description,
-      mac_address,
       label,
       mtu,
       speed,
