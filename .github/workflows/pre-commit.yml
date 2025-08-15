@@ -27,11 +27,11 @@ jobs:
     steps:
       - name: Checkout repository
         # https://github.com/actions/checkout/releases
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup SSH agent
         # https://github.com/webfactory/ssh-agent/releases
-        uses: webfactory/ssh-agent@v0.9.0
+        uses: webfactory/ssh-agent@v0.9.1
         with:
           ssh-private-key: "${{ secrets.DEPLOY_USER_SSH_KEY }}"
 
