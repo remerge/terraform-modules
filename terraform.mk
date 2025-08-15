@@ -1,12 +1,12 @@
 .PHONY: terraform-install
 terraform-install: ## install Terraform providers and modules
-	find . -name .terraform.lock.hcl -execdir terraform init \;
+	find . -name .terraform.lock.hcl -not -path './.terraform/*' -execdir terraform init \;
 install:: terraform-install
 
 .PHONY: terraform-update
 terraform-update:: ## update Terraform providers and modules
-	find . -name .terraform.lock.hcl -execdir terraform init -upgrade \;
-	find . -name .terraform.lock.hcl -execdir terraform providers lock -platform={darwin,linux}_{amd64,arm64} \;
+	find . -name .terraform.lock.hcl -not -path './.terraform/*' -execdir terraform init -upgrade \;
+	find . -name .terraform.lock.hcl -not -path './.terraform/*' -execdir terraform providers lock -platform={darwin,linux}_{amd64,arm64} \;
 update:: terraform-update
 
 .PHONY: terraform-build
