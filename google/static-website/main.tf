@@ -14,7 +14,7 @@ module "website" {
 
   set_admin_roles = true
   admins = [
-    "serviceAccount:github-actions@github-actions-runner-aef2.iam.gserviceaccount.com",
+    "serviceAccount:github-actions@github-6d1f.iam.gserviceaccount.com",
     "principalSet://iam.googleapis.com/${var.identity_pool}/attribute.repository/${var.identity_organization}/${var.identity_repository}",
   ]
 

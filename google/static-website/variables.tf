@@ -67,7 +67,7 @@ variable "enable_cdn" {
 variable "identity_pool" {
   description = "Google Cloud Workload Identity Pool"
   type        = string
-  default     = "projects/413626507216/locations/global/workloadIdentityPools/github-actions-pool"
+  default     = "projects/654112073299/locations/global/workloadIdentityPools/github-actions-pool"
 }
 
 variable "identity_organization" {
