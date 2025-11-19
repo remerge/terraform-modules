@@ -65,7 +65,7 @@ node {
 
 namespace "${nomad_namespace.default.name}" {
   policy = "read"
-  capabilities = ["alloc-exec", "alloc-lifecycle", "read-fs", "read-logs", "scale-job"]
+  capabilities = ["alloc-exec", "alloc-lifecycle", "read-fs", "read-logs", "scale-job", "submit-job"]
   variables {
     path "*" {
       capabilities = ["write", "read", "destroy", "list"]
