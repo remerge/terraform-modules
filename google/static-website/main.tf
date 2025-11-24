@@ -4,8 +4,8 @@ locals {
 }
 
 module "website" {
-  source  = "terraform-google-modules/cloud-storage/google"
-  version = "11.0.0"
+  source = "terraform-google-modules/cloud-storage/google"
+  # checkov:skip=CKV_TF_2:No version pinning
 
   project_id = var.project
   names = [

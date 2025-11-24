@@ -2,8 +2,7 @@
 # Manual edits may be lost in future updates.
 
 provider "registry.terraform.io/trois-six/sendgrid" {
-  version     = "0.2.1"
-  constraints = "~> 0.2"
+  version = "0.2.1"
   hashes = [
     "h1:3x6wo473IhjccnPe7eUu13tUxM54ZsJxrDkOa7607ow=",
     "h1:9ZNjleVfJKayzc1jpAkIo9VdNh69TvKSkj477OY5oCI=",
