@@ -29,7 +29,7 @@ resource "nomad_acl_auth_method" "okta" {
   max_token_ttl  = var.auth_max_token_ttl
   default        = true
 
-  token_name_format = "$${auth_method_type}-$${auth_method_name}-$${email}"
+  token_name_format = "$${auth_method_type}-$${auth_method_name}-$${value.email}"
 
   config {
     oidc_discovery_url = var.okta_discovery_url
