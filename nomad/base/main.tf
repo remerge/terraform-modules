@@ -29,13 +29,13 @@ resource "nomad_acl_auth_method" "okta" {
   max_token_ttl  = var.auth_max_token_ttl
   default        = true
 
-  token_name_format = "$${auth_method_type}-$${auth_method_name}"
+  token_name_format = "$${auth_method_type}-$${auth_method_name}-$${email}"
 
   config {
     oidc_discovery_url = var.okta_discovery_url
     oidc_client_id     = data.onepassword_item.nomad_oidc_client.username
     oidc_client_secret = data.onepassword_item.nomad_oidc_client.password
-    oidc_scopes        = ["profile", "groups"]
+    oidc_scopes        = ["profile", "groups", "email"]
 
     allowed_redirect_uris = [
       "http://localhost:4649/oidc/callback",
@@ -46,6 +46,7 @@ resource "nomad_acl_auth_method" "okta" {
     claim_mappings = {
       first_name = "first_name"
       last_name  = "last_name"
+      email      = "email"
     }
 
     list_claim_mappings = {
