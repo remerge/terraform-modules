@@ -34,6 +34,18 @@ resource "google_sql_database_instance" "main" {
 
     availability_type = "REGIONAL"
 
+    deny_maintenance_period {
+      end_date   = "3-13"
+      start_date = "12-14"
+      time       = "23:00:00"
+    }
+
+    maintenance_window {
+      day          = 0
+      hour         = 0
+      update_track = ""
+    }
+
     backup_configuration {
       enabled  = true
       location = var.backup.location
