@@ -40,12 +40,6 @@ resource "google_sql_database_instance" "main" {
       time       = "23:00:00"
     }
 
-    maintenance_window {
-      day          = 0
-      hour         = 0
-      update_track = ""
-    }
-
     backup_configuration {
       enabled  = true
       location = var.backup.location
