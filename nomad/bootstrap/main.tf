@@ -6,7 +6,7 @@ resource "terracurl_request" "nomad_bootstrap" {
 
   url    = "${var.nomad_addr}/v1/acl/bootstrap"
   method = "POST"
-  
+
   # Empty body required for the POST request
   request_body = "{}"
   headers      = {}
@@ -19,11 +19,11 @@ resource "terracurl_request" "nomad_bootstrap" {
 
 output "nomad_management_token" {
   description = "The Secret ID of the bootstrapped Nomad management token"
-  
+
   # We use try() because if the response was 403 (already bootstrapped),
   # the JSON body will not contain 'SecretID', which would otherwise cause a crash.
   value = try(
-    jsondecode(terracurl_request.nomad_bootstrap.response).SecretID, 
+    jsondecode(terracurl_request.nomad_bootstrap.response).SecretID,
     "CLUSTER_ALREADY_BOOTSTRAPPED_TOKEN_UNKNOWN"
   )
   sensitive = true
