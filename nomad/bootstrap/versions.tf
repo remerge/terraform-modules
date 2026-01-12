@@ -6,7 +6,6 @@ terraform {
     }
     terracurl = {
       source  = "devops-rob/terracurl"
-      version = "2.0.0"
     }
   }
 }
