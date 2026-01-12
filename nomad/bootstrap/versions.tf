@@ -5,7 +5,7 @@ terraform {
       source = "hashicorp/google"
     }
     terracurl = {
-      source  = "devops-rob/terracurl"
+      source = "devops-rob/terracurl"
     }
   }
 }
