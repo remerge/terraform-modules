@@ -1,6 +1,3 @@
-provider "terracurl" {
-}
-
 resource "terracurl_request" "nomad_bootstrap" {
   name = "nomad-bootstrap"
 
