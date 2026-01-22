@@ -57,11 +57,27 @@ resource "nomad_acl_auth_method" "okta" {
 
 resource "nomad_acl_policy" "default" {
   name        = "default"
-  description = "Default read-only policy"
+  description = "Default policy"
 
   rules_hcl = <<EOT
 node {
   policy = "read"
+}
+
+agent {
+  policy = "read"
+}
+
+operator {
+  policy = "read"
+}
+
+plugin {
+  policy = "list"
+}
+
+host_volume "*" {
+  policy = "write"
 }
 
 namespace "${nomad_namespace.default.name}" {
@@ -106,6 +122,22 @@ resource "nomad_acl_policy" "root" {
 
   rules_hcl = <<EOT
 node {
+  policy = "write"
+}
+
+agent {
+  policy = "write"
+}
+
+operator {
+  policy = "write"
+}
+
+plugin {
+  policy = "list"
+}
+
+host_volume "*" {
   policy = "write"
 }
 
