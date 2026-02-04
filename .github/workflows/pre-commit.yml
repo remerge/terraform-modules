@@ -21,29 +21,38 @@ permissions:
   security-events: none
   statuses: none
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   pre-commit:
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-2vcpu-ubuntu-2204
     steps:
       - name: Checkout repository
         # https://github.com/actions/checkout/releases
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6.0.1
 
       - name: Setup SSH agent
         # https://github.com/webfactory/ssh-agent/releases
-        uses: webfactory/ssh-agent@v0.9.0
+        uses: webfactory/ssh-agent@v0.9.1
         with:
           ssh-private-key: "${{ secrets.DEPLOY_USER_SSH_KEY }}"
 
       - name: Setup Git
         run: |
-          curl -sL https://api.github.com/meta | jq -r '"github.com "+.ssh_keys[]' >> ~/.ssh/known_hosts
+          curl -f -sL --retry 5 --retry-delay 1 https://api.github.com/meta | jq -r '"github.com "+.ssh_keys[]' >> ~/.ssh/known_hosts
           git config --global url."git@github.com:".insteadOf "https://github.com/"
           git config --global advice.detachedHead false
 
+      - name: Setup Python
+        uses: actions/setup-python@v6.1.0
+        with:
+          python-version: "3.14"
+
       - name: Setup Terraform
         # https://github.com/hashicorp/setup-terraform/releases
-        uses: hashicorp/setup-terraform@v3
+        uses: hashicorp/setup-terraform@v3.1.2
         with:
           cli_config_credentials_token: "${{ secrets.TF_CLOUD_API_TOKEN }}"
 
@@ -54,14 +63,14 @@ jobs:
 
       - name: Cache Terraform plugins
         # https://github.com/actions/cache/releases
-        uses: actions/cache@v4
+        uses: actions/cache@v5.0.1
         with:
           path: ~/.terraform.d/plugin-cache
           key: "${{ runner.os }}-terraform-${{ hashFiles('**/.terraform.lock.hcl') }}"
 
       - name: Load envrc
         # https://github.com/HatsuneMiku3939/direnv-action/releases
-        uses: HatsuneMiku3939/direnv-action@v1
+        uses: HatsuneMiku3939/direnv-action@v1.1.0
 
       - name: Install project dependencies
         run: make install

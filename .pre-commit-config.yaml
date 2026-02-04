@@ -7,10 +7,13 @@ default_install_hook_types:
   - pre-commit
   - prepare-commit-msg
 
+default_language_version:
+  python: python3.14
+
 repos:
   # https://github.com/pre-commit/pre-commit-hooks/tags
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: "v5.0.0"
+    rev: "v6.0.0"
     hooks:
       - id: check-added-large-files
       - id: check-case-conflict
@@ -20,12 +23,11 @@ repos:
       - id: check-symlinks
       - id: check-vcs-permalinks
       - id: destroyed-symlinks
-      - id: detect-private-key
       - id: end-of-file-fixer
       - id: fix-byte-order-marker
       - id: forbid-submodules
       - id: trailing-whitespace
-        exclude: "^.gitignore$"
+        exclude: "^\\.gitignore$"
 
   # https://github.com/prettier/prettier/tags
   - repo: local
@@ -37,18 +39,18 @@ repos:
         types: [text]
         exclude: "^project/"
         additional_dependencies:
-          - "prettier@3.6.2"
+          - "prettier@3.8.0"
 
   # https://github.com/igorshubovych/markdownlint-cli/tags
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: "v0.45.0"
+    rev: "v0.47.0"
     hooks:
       - id: markdownlint-fix
         name: markdownlint
 
   # https://github.com/adrienverge/yamllint/tags
   - repo: https://github.com/adrienverge/yamllint
-    rev: "v1.37.1"
+    rev: "v1.38.0"
     hooks:
       - id: yamllint
         entry: yamllint --strict
@@ -68,18 +70,18 @@ repos:
 
   # https://github.com/rhysd/actionlint/tags
   - repo: https://github.com/rhysd/actionlint
-    rev: "v1.7.7"
+    rev: "v1.7.10"
     hooks:
       - id: actionlint-docker
         name: actionlint
 
   # https://github.com/bridgecrewio/checkov/tags
   - repo: https://github.com/bridgecrewio/checkov
-    rev: "3.2.458"
+    rev: "3.2.497"
     hooks:
       - id: checkov
         name: checkov
-        args: [--config-file=.checkov.yml, --skip-path=vendor]
+        args: [--config-file=.checkov.yml]
 
   # https://github.com/jorisroovers/gitlint/tags
   - repo: https://github.com/jorisroovers/gitlint
@@ -96,9 +98,16 @@ repos:
 
   # https://github.com/antonbabenko/pre-commit-terraform/tags
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: "v1.100.0"
+    rev: "v1.105.0"
     hooks:
       - id: terraform_fmt
         name: terraform-fmt
       - id: terraform_validate
         name: terraform-validate
+        args:
+          - --hook-config=--retry-once-with-cleanup=true
+          - --tf-init-args=-upgrade
+      - id: terraform_providers_lock
+        name: terraform-providers-lock
+        args:
+          - --hook-config=--mode=always-regenerate-lockfile
