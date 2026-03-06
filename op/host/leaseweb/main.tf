@@ -17,7 +17,7 @@ resource "onepassword_item" "gc" {
 
   username = "admin"
   password = data.leaseweb_dedicated_server_credential.main.password
-  url      = "https://${var.remote_management_ip}/restgui/start.html"
+  url      = "https://${var.remote_management_ip}"
 
   section {
     label = "netbox"
