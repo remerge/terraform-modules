@@ -61,14 +61,14 @@ jobs:
 
       - name: Cache Terraform plugins
         # https://github.com/actions/cache/releases
-        uses: actions/cache@v5.0.3
+        uses: actions/cache@v5.0.5
         with:
           path: ~/.terraform.d/plugin-cache
           key: "${{ runner.os }}-terraform-${{ hashFiles('**/.terraform.lock.hcl') }}"
 
       - name: Load envrc
         # https://github.com/HatsuneMiku3939/direnv-action/releases
-        uses: HatsuneMiku3939/direnv-action@v1.1.0
+        uses: HatsuneMiku3939/direnv-action@v1.2.1
 
       - name: Install project dependencies
         run: make install

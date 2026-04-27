@@ -39,7 +39,7 @@ repos:
         types: [text]
         exclude: "^project/"
         additional_dependencies:
-          - "prettier@3.8.1"
+          - "prettier@3.8.3"
 
   # https://github.com/igorshubovych/markdownlint-cli/tags
   - repo: https://github.com/igorshubovych/markdownlint-cli
@@ -70,14 +70,14 @@ repos:
 
   # https://github.com/rhysd/actionlint/tags
   - repo: https://github.com/rhysd/actionlint
-    rev: "v1.7.11"
+    rev: "v1.7.12"
     hooks:
       - id: actionlint-docker
         name: actionlint
 
   # https://github.com/bridgecrewio/checkov/tags
   - repo: https://github.com/bridgecrewio/checkov
-    rev: "3.2.508"
+    rev: "3.2.524"
     hooks:
       - id: checkov
         name: checkov
@@ -104,3 +104,7 @@ repos:
         name: terraform-providers-lock
         args:
           - --hook-config=--mode=always-regenerate-lockfile
+          - --args=-platform=darwin_amd64
+          - --args=-platform=darwin_arm64
+          - --args=-platform=linux_amd64
+          - --args=-platform=linux_arm64
