@@ -26,6 +26,7 @@ resource "google_compute_instance_from_template" "main" {
   machine_type = var.machine_type
 
   boot_disk {
+    auto_delete = true
     device_name = "boot"
     initialize_params {
       image = var.disk_image
