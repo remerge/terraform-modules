@@ -47,7 +47,7 @@ resource "nomad_acl_auth_method" "okta" {
       first_name = "first_name"
       last_name  = "last_name"
       email      = "email"
-      nomad_role = "nomad_role"
+      role       = "role"
     }
   }
 }
@@ -171,7 +171,7 @@ resource "nomad_acl_binding_rule" "root" {
   auth_method = nomad_acl_auth_method.okta.name
   bind_type   = "role"
   bind_name   = nomad_acl_role.root.name
-  selector    = "value.nomad_role == \"root\""
+  selector    = "value.role == \"root\""
 }
 
 resource "nomad_acl_policy" "github_actions" {
