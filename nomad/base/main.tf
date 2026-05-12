@@ -50,7 +50,7 @@ resource "nomad_acl_auth_method" "okta" {
     }
 
     list_claim_mappings = {
-      groups = "groups"
+      group_list = "groups"
     }
   }
 }
