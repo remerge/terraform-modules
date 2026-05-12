@@ -47,7 +47,7 @@ resource "nomad_acl_auth_method" "okta" {
       first_name = "first_name"
       last_name  = "last_name"
       email      = "email"
-      role       = "role"
+      nomad_role = "role"
     }
   }
 }
