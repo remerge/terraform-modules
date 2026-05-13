@@ -21,6 +21,15 @@ variable "tier" {
   default = "db-f1-micro"
 }
 
+variable "availability_type" {
+  type    = string
+  default = "REGIONAL"
+  validation {
+    condition     = contains(["REGIONAL", "ZONAL"], var.availability_type)
+    error_message = "availability_type must be either REGIONAL or ZONAL."
+  }
+}
+
 variable "network" {
   type = string
 }
