@@ -32,7 +32,7 @@ resource "google_sql_database_instance" "main" {
       }
     }
 
-    availability_type = "REGIONAL"
+    availability_type = var.availability_type
 
     backup_configuration {
       enabled  = true
