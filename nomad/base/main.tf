@@ -35,7 +35,7 @@ resource "nomad_acl_auth_method" "okta" {
     oidc_discovery_url = var.okta_discovery_url
     oidc_client_id     = data.onepassword_item.nomad_oidc_client.username
     oidc_client_secret = data.onepassword_item.nomad_oidc_client.password
-    oidc_scopes        = ["profile", "groups", "email"]
+    oidc_scopes        = ["profile", "email"]
 
     allowed_redirect_uris = [
       "http://localhost:4649/oidc/callback",
@@ -47,10 +47,7 @@ resource "nomad_acl_auth_method" "okta" {
       first_name = "first_name"
       last_name  = "last_name"
       email      = "email"
-    }
-
-    list_claim_mappings = {
-      group_list = "groups"
+      nomad_role = "role"
     }
   }
 }
@@ -170,30 +167,11 @@ resource "nomad_acl_role" "root" {
   }
 }
 
-moved {
-  from = nomad_acl_binding_rule.platform
-  to   = nomad_acl_binding_rule.core
-}
-
-resource "nomad_acl_binding_rule" "core" {
+resource "nomad_acl_binding_rule" "root" {
   auth_method = nomad_acl_auth_method.okta.name
   bind_type   = "role"
   bind_name   = nomad_acl_role.root.name
-  selector    = "\"Core Platform Team\" in list.groups"
-}
-
-resource "nomad_acl_binding_rule" "data" {
-  auth_method = nomad_acl_auth_method.okta.name
-  bind_type   = "role"
-  bind_name   = nomad_acl_role.root.name
-  selector    = "\"Data Platform Team\" in list.groups"
-}
-
-resource "nomad_acl_binding_rule" "oncall" {
-  auth_method = nomad_acl_auth_method.okta.name
-  bind_type   = "role"
-  bind_name   = nomad_acl_role.root.name
-  selector    = "\"On-Call Team\" in list.groups"
+  selector    = "value.role == \"root\""
 }
 
 resource "nomad_acl_policy" "github_actions" {
