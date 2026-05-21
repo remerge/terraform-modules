@@ -1,3 +1,4 @@
 output "instance" {
-  value = google_redis_instance.main
+  value     = google_redis_instance.main
+  sensitive = true
 }

@@ -1,13 +1,16 @@
-# This file is maintained automatically by "terraform init".
+# This file is maintained automatically by "tofu init".
 # Manual edits may be lost in future updates.
 
-provider "registry.terraform.io/1password/onepassword" {
+provider "registry.opentofu.org/1password/onepassword" {
   version = "3.3.1"
   hashes = [
     "h1:35PCpSNLVubReT1imwfC+FpIP5gQWx+rvG4njkXkZKM=",
+    "h1:GqvBYImDNYNPMi9o3kJTSIJDeEnNO7om46RWA0wjeso=",
     "h1:Tg8bJ+ATy5pla6ZTn87lb3nIyiTJTgQHJdxOWQjFF9k=",
     "h1:a8DHdeyXt8YaEngXGEWZC75W27OG742wtw5BmRnhrpI=",
     "h1:bPFt8A+PWGwEj3wQ3D0GxyrTMmr1piNrwEuPJu7AZTo=",
+    "h1:nThx/0XctUKlAa6aAsSEHZvx/mD1tSxCE6pacSnotxU=",
+    "h1:syh+iS5VPBQTLszL503BOi5rLpL1wGl1IjyYqgpKYIg=",
     "zh:02d93a7f520ec69ad8944a68dcbf512e2f9920a6696628b8d05e6ad408309f35",
     "zh:0f91a902da84470af95f0da4dc21127b84e23c856a431ff9ecfe45d9c6775ef0",
     "zh:161bc55c466214a5d425ba85753d74ed5078212db965f726e6650d2e1524d633",
@@ -19,11 +22,21 @@ provider "registry.terraform.io/1password/onepassword" {
   ]
 }
 
-provider "registry.terraform.io/leaseweb/leaseweb" {
+provider "registry.opentofu.org/leaseweb/leaseweb" {
   version = "1.31.0"
   hashes = [
     "h1:/0R4YWiRDgdUO5ZClBjPhAJr+xRFDFpgebf04reRfyI=",
     "h1:5/cDsRbZ3Nyp51+zJOt68GZQzju4ET55lhl6hjOXgJw=",
+    "h1:MCvEaf9FS/00vW6VU/1xwPcei7lqKcGxsI0WbaWWUJM=",
+    "h1:Qei0RrUCJpXMlLtojgBaOBIkJFK4jSEtiHqdbP2QDSM=",
+    "h1:TWCiBGyGa7SD4o0sRdxtPCVtb/V2VraI7NuSneDzS0o=",
+    "h1:TrmhZQJAa7Mv+nHFtk9bcrGTYNR4Ofs0En5sk0VDslA=",
+    "h1:aGFYPMjhz6mZDyYiGhC0bpQ4jL7A225+viSYHuUge3o=",
+    "h1:iFSo4oU19qJjkwopHPujlLqUedbq1XhHW1JMyceD3h8=",
+    "h1:iU3p8zB07ThOwfAeWW4j0/Gg2/S0XB77NRPILJZXXrU=",
+    "h1:mRraTpFHqJQ0hsJJtJ1tYWKYZAo4uFGEx8VrrxkpO9M=",
+    "h1:mhYlgQ1dY/ZGhElSB1hkkgrpT0PuoJ2KK8OorD/9SHk=",
+    "h1:ojQtN4Uo2srZVfP9jA7jMnwdhDqie+pHuUBsJqGZfFY=",
     "h1:vv5+qn/oM2FrlDOlqZUOWwBatE9hOz0GZW1icM04dnk=",
     "h1:zNWiclhL30XkiqWMuNkul/L9z80gToxDTNWKYXZC5js=",
     "zh:02b892125b9339403a2daf53187115ccf555bc44eb5f7f0ec746c77be48087c8",

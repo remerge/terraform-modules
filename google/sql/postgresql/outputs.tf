@@ -1,3 +1,4 @@
 output "instance" {
-  value = google_sql_database_instance.main
+  value     = google_sql_database_instance.main
+  sensitive = true
 }

@@ -3,9 +3,11 @@ output "database" {
 }
 
 output "user" {
-  value = google_sql_user.main
+  value     = google_sql_user.main
+  sensitive = true
 }
 
 output "password" {
-  value = random_password.user.result
+  value     = random_password.user.result
+  sensitive = true
 }

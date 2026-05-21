@@ -1,3 +1,4 @@
 output "os_root_password" {
-  value = random_password.main.result
+  value     = random_password.main.result
+  sensitive = true
 }
