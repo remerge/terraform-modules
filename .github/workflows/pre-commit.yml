@@ -50,28 +50,25 @@ jobs:
         with:
           python-version: "3.14"
 
-      - name: Setup Terraform
-        # https://github.com/hashicorp/setup-terraform/releases
-        uses: hashicorp/setup-terraform@v4.0.0
+      - name: Setup OpenTofu
+        # https://github.com/opentofu/setup-opentofu/releases
+        uses: opentofu/setup-opentofu@v2.0.1
 
-      - name: Setup Terraform plugin cache
-        run: |
-          echo -e "\nplugin_cache_dir=\"\$HOME/.terraform.d/plugin-cache\"" >> ~/.terraformrc
-          mkdir -p ~/.terraform.d/plugin-cache
-
-      - name: Cache Terraform plugins
+      - name: Cache Terraform providers
         # https://github.com/actions/cache/releases
         uses: actions/cache@v5.0.5
         with:
-          path: ~/.terraform.d/plugin-cache
+          path: .terraform
           key: "${{ runner.os }}-terraform-${{ hashFiles('**/.terraform.lock.hcl') }}"
 
       - name: Load envrc
         # https://github.com/HatsuneMiku3939/direnv-action/releases
-        uses: HatsuneMiku3939/direnv-action@v1.2.1
+        uses: HatsuneMiku3939/direnv-action@v1.3.4
 
       - name: Install project dependencies
         run: make install
+        env:
+          TF_INIT_FLAGS: -backend=false
 
       - name: Run pre-commit checks
         # https://github.com/pre-commit/action/releases

@@ -1,13 +1,23 @@
-# This file is maintained automatically by "terraform init".
+# This file is maintained automatically by "tofu init".
 # Manual edits may be lost in future updates.
 
-provider "registry.terraform.io/trois-six/sendgrid" {
+provider "registry.opentofu.org/trois-six/sendgrid" {
   version = "0.2.1"
   hashes = [
     "h1:3x6wo473IhjccnPe7eUu13tUxM54ZsJxrDkOa7607ow=",
+    "h1:7GZZZqaTSFPbKp+O+VtPSOsrUUEba+vlXzkM99QmKIg=",
     "h1:9ZNjleVfJKayzc1jpAkIo9VdNh69TvKSkj477OY5oCI=",
+    "h1:CjGjXugXFuZW+FAUekfJQsUjFkndFowzfK9snw/pDNE=",
+    "h1:DQRw8YTb/lmjcZtPSm/mkRUMZcwu9NHwRdgBVXSTteY=",
+    "h1:Hqd9ag6j0XT5qicLDURLBe7rta4bmP3ALqihaXuPQss=",
     "h1:JNzWnufjwRRDNMIq3NqiCq+QZZ6EaHL4Fk4OlpXVUJ4=",
+    "h1:KVEpjxOSI5GypKDQDE8E5sCi4dGAOfz2lGTPMkS5l0U=",
+    "h1:ZJmeH+2qTI0WwKdrOI9/YjyNIQSVDgkafzistguC+nc=",
+    "h1:b87OvzuqM7R0VGT6/dMR2U9r3yaltiJa8sXKZ6WfQNo=",
     "h1:ePU2B89SJvmpNUWGR7BJ4ooRGDXoxpk7ajHbHLtOEl8=",
+    "h1:jVtWWNdhkhrQF80lYqBRWaDV6MLf+oPDorDV8GthfdQ=",
+    "h1:lA8gmqZOx4KTPHGBKsQeuIcIZRPzY1ztnnZfprR/HyY=",
+    "h1:mnsUWRQX+i7sPWzPID5Netai0H8s5Z92Ra/5mdzvcZE=",
     "zh:0cf1d3a04252e82d237539f2eaf5092d11415d1eeae2ef08f7e9a8faeedf299c",
     "zh:1f068c3606ddc12759165748298f6a6df4ae4590448d2412c3d7d8e2ee7f8553",
     "zh:4552d197d2dbfaae15057e8263cfdc5955730bad2027fcbd7d23e0eba627fa95",
