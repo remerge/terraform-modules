@@ -3,10 +3,23 @@ resource "random_password" "main" {
   special          = true
   override_special = "@,.^%-_~"
 
+  # Leaseweb's installation API rejects passwords that don't contain at least
+  # one of each character class (upper, lower, digit, special). Without these
+  # minimums random_password occasionally generates a value missing a class,
+  # which fails the install mid-apply. Guarantee one of each.
+  min_upper   = 1
+  min_lower   = 1
+  min_numeric = 1
+  min_special = 1
+
   lifecycle {
     ignore_changes = [
       special,
       override_special,
+      min_upper,
+      min_lower,
+      min_numeric,
+      min_special,
     ]
   }
 }
