@@ -2,11 +2,11 @@ terraform {
   required_providers {
     # https://registry.terraform.io/providers/hashicorp/nomad/latest
     nomad = {
-      source = "hashicorp/nomad"
+      source = "registry.terraform.io/hashicorp/nomad"
     }
     # https://registry.terraform.io/providers/1Password/onepassword/latest
     onepassword = {
-      source = "1Password/onepassword"
+      source = "registry.terraform.io/1Password/onepassword"
     }
   }
 }

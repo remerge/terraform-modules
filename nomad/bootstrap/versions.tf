@@ -2,10 +2,10 @@ terraform {
   required_providers {
     # https://registry.terraform.io/providers/hashicorp/google/latest
     google = {
-      source = "hashicorp/google"
+      source = "registry.terraform.io/hashicorp/google"
     }
     terracurl = {
-      source = "devops-rob/terracurl"
+      source = "registry.terraform.io/devops-rob/terracurl"
     }
   }
 }
