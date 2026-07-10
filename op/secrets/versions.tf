@@ -1,8 +1,8 @@
 terraform {
   required_providers {
-    # https://registry.terraform.io/providers/1Password/onepassword/latest
+    # https://search.opentofu.org/provider/1Password/onepassword/latest
     onepassword = {
-      source = "registry.terraform.io/1Password/onepassword"
+      source = "registry.opentofu.org/1Password/onepassword"
     }
   }
 }

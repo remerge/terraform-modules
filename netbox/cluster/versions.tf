@@ -1,12 +1,12 @@
 terraform {
   required_providers {
-    # https://registry.terraform.io/providers/hashicorp/google/latest
+    # https://search.opentofu.org/provider/hashicorp/google/latest
     google = {
-      source = "registry.terraform.io/hashicorp/google"
+      source = "registry.opentofu.org/hashicorp/google"
     }
-    # https://registry.terraform.io/providers/e-breuninger/netbox/latest
+    # https://search.opentofu.org/provider/e-breuninger/netbox/latest
     netbox = {
-      source = "registry.terraform.io/e-breuninger/netbox"
+      source = "registry.opentofu.org/e-breuninger/netbox"
     }
   }
 }

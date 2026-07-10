@@ -1,8 +1,8 @@
 terraform {
   required_providers {
-    # https://registry.terraform.io/providers/Trois-Six/sendgrid/latest
+    # https://search.opentofu.org/provider/Trois-Six/sendgrid/latest
     sendgrid = {
-      source = "registry.terraform.io/Trois-Six/sendgrid"
+      source = "registry.opentofu.org/Trois-Six/sendgrid"
     }
   }
 }

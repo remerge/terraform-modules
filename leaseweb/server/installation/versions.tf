@@ -1,12 +1,12 @@
 terraform {
   required_providers {
-    # https://registry.terraform.io/providers/LeaseWeb/leaseweb/latest
+    # https://search.opentofu.org/provider/LeaseWeb/leaseweb/latest
     leaseweb = {
-      source = "registry.terraform.io/LeaseWeb/leaseweb"
+      source = "registry.opentofu.org/LeaseWeb/leaseweb"
     }
-    # https://registry.terraform.io/providers/hashicorp/random/latest
+    # https://search.opentofu.org/provider/hashicorp/random/latest
     random = {
-      source = "registry.terraform.io/hashicorp/random"
+      source = "registry.opentofu.org/hashicorp/random"
     }
   }
 }

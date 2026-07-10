@@ -1,12 +1,12 @@
 terraform {
   required_providers {
-    # https://registry.terraform.io/providers/hashicorp/nomad/latest
+    # https://search.opentofu.org/provider/hashicorp/nomad/latest
     nomad = {
-      source = "registry.terraform.io/hashicorp/nomad"
+      source = "registry.opentofu.org/hashicorp/nomad"
     }
-    # https://registry.terraform.io/providers/1Password/onepassword/latest
+    # https://search.opentofu.org/provider/1Password/onepassword/latest
     onepassword = {
-      source = "registry.terraform.io/1Password/onepassword"
+      source = "registry.opentofu.org/1Password/onepassword"
     }
   }
 }

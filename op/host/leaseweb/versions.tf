@@ -1,12 +1,12 @@
 terraform {
   required_providers {
-    # https://registry.terraform.io/providers/1Password/onepassword/latest
+    # https://search.opentofu.org/provider/1Password/onepassword/latest
     onepassword = {
-      source = "registry.terraform.io/1Password/onepassword"
+      source = "registry.opentofu.org/1Password/onepassword"
     }
-    # https://registry.terraform.io/providers/LeaseWeb/leaseweb/latest
+    # https://search.opentofu.org/provider/LeaseWeb/leaseweb/latest
     leaseweb = {
-      source = "registry.terraform.io/LeaseWeb/leaseweb"
+      source = "registry.opentofu.org/LeaseWeb/leaseweb"
     }
   }
 }

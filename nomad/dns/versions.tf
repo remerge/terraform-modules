@@ -1,8 +1,8 @@
 terraform {
   required_providers {
-    # https://registry.terraform.io/providers/hashicorp/google/latest
+    # https://search.opentofu.org/provider/hashicorp/google/latest
     google = {
-      source = "registry.terraform.io/hashicorp/google"
+      source = "registry.opentofu.org/hashicorp/google"
     }
   }
 }
