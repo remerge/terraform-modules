@@ -25,13 +25,24 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  # terraform downloads from the private registry which requires authentication.
+  TF_TOKEN_app_terraform_io: ${{ secrets.TF_TOKEN_APP_TERRAFORM_IO }}
+  # The shared plugin cache is populated from a cold state on every run and is
+  # read (via the workspace's provider symlinks) while other directories are
+  # still being initialized, so a provider package can be read mid-write. Allow
+  # Terraform to reconcile the cached package against the committed lock file
+  # instead of failing with "the cached package ... does not match any of the
+  # checksums recorded in the dependency lock file".
+  TF_PLUGIN_CACHE_MAY_BREAK_DEPENDENCY_LOCK_FILE: "true"
+
 jobs:
   pre-commit:
-    runs-on: blacksmith-2vcpu-ubuntu-2204
+    runs-on: blacksmith-2vcpu-ubuntu-2404
     steps:
       - name: Checkout repository
         # https://github.com/actions/checkout/releases
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v7.0.0
 
       - name: Setup SSH agent
         # https://github.com/webfactory/ssh-agent/releases
@@ -46,29 +57,40 @@ jobs:
           git config --global advice.detachedHead false
 
       - name: Setup Python
-        uses: actions/setup-python@v6.2.0
+        uses: actions/setup-python@v6.3.0
         with:
           python-version: "3.14"
 
-      - name: Setup OpenTofu
-        # https://github.com/opentofu/setup-opentofu/releases
-        uses: opentofu/setup-opentofu@v2.0.1
+      - name: Setup Terraform
+        # https://github.com/hashicorp/setup-terraform/releases
+        uses: hashicorp/setup-terraform@v4.0.1
+        with:
+          # The wrapper intercepts terraform's stdout, which breaks the
+          # pre-commit-terraform hooks that parse `terraform` output.
+          terraform_wrapper: false
 
       - name: Cache Terraform providers
         # https://github.com/actions/cache/releases
-        uses: actions/cache@v5.0.5
+        uses: actions/cache@v6.1.0
         with:
-          path: .terraform
-          key: "${{ runner.os }}-terraform-${{ hashFiles('**/.terraform.lock.hcl') }}"
+          path: ~/.cache/terraform/plugins
+          key: "${{ runner.os }}-tf-plugins-${{ hashFiles('**/.terraform.lock.hcl') }}"
+
+      # https://github.com/actions/setup-node/issues/531
+      - run: corepack enable
+
+      - name: Setup NodeJS
+        # https://github.com/actions/setup-node/releases
+        uses: actions/setup-node@v7.0.0
+        with:
+          node-version: "24.18.0"
 
       - name: Load envrc
         # https://github.com/HatsuneMiku3939/direnv-action/releases
-        uses: HatsuneMiku3939/direnv-action@v1.3.4
+        uses: HatsuneMiku3939/direnv-action@v1.4.1
 
       - name: Install project dependencies
         run: make install
-        env:
-          TF_INIT_FLAGS: -backend=false
 
       - name: Run pre-commit checks
         # https://github.com/pre-commit/action/releases
