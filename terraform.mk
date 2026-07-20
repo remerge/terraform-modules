@@ -1,5 +1,3 @@
-TF_INIT_FLAGS ?=
-
 # Shared provider plugin cache reused across workspaces and runs. Created here
 # so `make install`/`update` benefit even without direnv; Terraform silently
 # skips caching if the directory does not already exist.
@@ -12,7 +10,7 @@ TF_LOCK_PLATFORMS ?= darwin_arm64 linux_amd64
 .PHONY: terraform-install
 terraform-install: ## install Terraform providers and modules
 	mkdir -p "$(TF_PLUGIN_CACHE_DIR)"
-	terraform init $(TF_INIT_FLAGS)
+	terraform init
 install:: terraform-install
 
 .PHONY: terraform-update
