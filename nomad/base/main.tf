@@ -208,6 +208,19 @@ namespace "default" {
     }
   }
 }
+
+# Lets the deployment pipeline run `divert clear` before a rollout: list/read the
+# app's divert jobs, stop them (submit-job), and purge their Nomad variables.
+# The post-cleanup force-eval targets the production job in "default" above.
+namespace "${nomad_namespace.diverts.name}" {
+  capabilities = ["submit-job","list-jobs","read-job"]
+  policy = "read"
+  variables {
+    path "*" {
+      capabilities = ["write", "read", "destroy", "list"]
+    }
+  }
+}
 EOT
 }
 
