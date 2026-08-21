@@ -6,6 +6,8 @@ terraform {
     # https://github.com/remerge/terraform-provider-leaseweb
     leaseweb = {
       source = "app.terraform.io/remerge/leaseweb"
+      # prerelease: pin exactly, other constraints exclude prereleases
+      version = "1.31.1-remerge1"
     }
   }
 }
