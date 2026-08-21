@@ -20,6 +20,12 @@ resource "netbox_device" "main" {
   lifecycle {
     ignore_changes = [
       serial,
+      # rack placement is documented directly in NetBox and not managed by
+      # this module; without this an imported device loses its rack elevation
+      location_id,
+      rack_id,
+      rack_position,
+      rack_face,
     ]
   }
 }
