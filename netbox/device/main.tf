@@ -5,6 +5,7 @@ locals {
   ip_address = var.ip_address != null ? split("/", var.ip_address)[0] : null
   ip_prefix  = var.ip_address != null ? try(split("/", var.ip_address)[1], "32") : null
   tags       = var.tags != null ? var.tags : data.netbox_cluster.main[0].tags
+  rack       = var.rack != null && var.site != null ? one(data.netbox_racks.main[0].racks) : null
 }
 
 resource "netbox_device" "main" {
@@ -17,10 +18,31 @@ resource "netbox_device" "main" {
   asset_tag      = var.asset_tag
   tags           = local.tags
 
+  # rack placement from the rack looked up by facility ID; all null when the
+  # rack does not exist in NetBox (face is required whenever position is set)
+  rack_id       = local.rack != null ? local.rack.id : null
+  location_id   = local.rack != null && local.rack.location_id != 0 ? local.rack.location_id : null
+  rack_position = local.rack != null ? var.rack.position : null
+  rack_face     = local.rack != null ? var.rack.face : null
+
   lifecycle {
     ignore_changes = [
       serial,
     ]
+  }
+}
+
+data "netbox_racks" "main" {
+  count = var.rack != null && var.site != null ? 1 : 0
+
+  filter {
+    name  = "facility_id"
+    value = var.rack.facility_id
+  }
+
+  filter {
+    name  = "site_id"
+    value = tostring(data.netbox_site.main[0].id)
   }
 }
 

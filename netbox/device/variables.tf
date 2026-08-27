@@ -64,3 +64,17 @@ variable "ip_address" {
   type    = string
   default = null
 }
+
+variable "rack" {
+  description = <<-EOT
+    Rack placement of the device. The rack is looked up in NetBox by its
+    facility ID within the device's site (e.g. the rack name reported by the
+    Leaseweb API). Placement stays empty when no matching rack exists in NetBox.
+  EOT
+  type = object({
+    facility_id = string
+    position    = number
+    face        = optional(string, "front")
+  })
+  default = null
+}
