@@ -17,26 +17,57 @@ variable "zone" {
 }
 
 variable "model" {
-  type = string
+  description = "Device type model name; ignored when device_type_id is set."
+  type        = string
+  default     = null
+}
+
+variable "device_type_id" {
+  type    = number
+  default = null
 }
 
 variable "role" {
-  type    = string
-  default = "Other"
+  description = "Device role name; ignored when role_id is set."
+  type        = string
+  default     = "Other"
+}
+
+variable "role_id" {
+  type    = number
+  default = null
 }
 
 variable "platform" {
-  type    = string
-  default = "Other"
+  description = "Platform name; ignored when platform_id is set."
+  type        = string
+  default     = "Other"
+}
+
+variable "platform_id" {
+  type    = number
+  default = null
 }
 
 variable "site" {
-  type    = any
+  description = "Site name; ignored when site_id is set."
+  type        = any
+  default     = null
+}
+
+variable "site_id" {
+  type    = number
   default = null
 }
 
 variable "cluster" {
-  type    = any
+  description = "Cluster name; ignored when cluster_id is set."
+  type        = any
+  default     = null
+}
+
+variable "cluster_id" {
+  type    = number
   default = null
 }
 
@@ -65,16 +96,23 @@ variable "ip_address" {
   default = null
 }
 
+variable "rack_id" {
+  description = "NetBox rack ID. Placement stays empty when null."
+  type        = number
+  default     = null
+}
+
+variable "location_id" {
+  description = "NetBox location ID of the rack (NetBox requires it to match the rack's location)."
+  type        = number
+  default     = null
+}
+
 variable "rack" {
-  description = <<-EOT
-    Rack placement of the device. The rack is looked up in NetBox by its
-    facility ID within the device's site (e.g. the rack name reported by the
-    Leaseweb API). Placement stays empty when no matching rack exists in NetBox.
-  EOT
+  description = "Rack placement of the device within var.rack_id."
   type = object({
-    facility_id = string
-    position    = number
-    face        = optional(string, "front")
+    position = number
+    face     = optional(string, "front")
   })
   default = null
 }
