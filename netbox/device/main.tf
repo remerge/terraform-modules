@@ -4,26 +4,34 @@ locals {
   fqdn       = "${local.hostname}.${local.domain}"
   ip_address = var.ip_address != null ? split("/", var.ip_address)[0] : null
   ip_prefix  = var.ip_address != null ? try(split("/", var.ip_address)[1], "32") : null
-  tags       = var.tags != null ? var.tags : data.netbox_cluster.main[0].tags
-  rack       = var.rack != null && var.site != null ? one(data.netbox_racks.main[0].racks) : null
+
+  role_id        = var.role_id != null ? var.role_id : data.netbox_device_role.main[0].id
+  platform_id    = var.platform_id != null ? var.platform_id : data.netbox_platform.main[0].id
+  device_type_id = var.device_type_id != null ? var.device_type_id : data.netbox_device_type.main[0].id
+  site_id        = var.site_id != null ? var.site_id : (var.site != null ? data.netbox_site.main[0].id : null)
+  cluster_id     = var.cluster_id != null ? var.cluster_id : (var.cluster != null ? data.netbox_cluster.main[0].id : null)
+
+  # tags fall back to the cluster's tags only when the cluster is looked up by
+  # name; with cluster_id there is no lookup and therefore no tag inheritance
+  tags = var.tags != null ? var.tags : (var.cluster != null && var.cluster_id == null ? data.netbox_cluster.main[0].tags : [])
 }
 
 resource "netbox_device" "main" {
   name           = local.fqdn
-  role_id        = data.netbox_device_role.main.id
-  platform_id    = data.netbox_platform.main.id
-  device_type_id = data.netbox_device_type.main.id
-  site_id        = var.site != null ? data.netbox_site.main[0].id : null
-  cluster_id     = var.cluster != null ? data.netbox_cluster.main[0].id : null
+  role_id        = local.role_id
+  platform_id    = local.platform_id
+  device_type_id = local.device_type_id
+  site_id        = local.site_id
+  cluster_id     = local.cluster_id
   asset_tag      = var.asset_tag
   tags           = local.tags
 
-  # rack placement from the rack looked up by facility ID; all null when the
-  # rack does not exist in NetBox (face is required whenever position is set)
-  rack_id       = local.rack != null ? local.rack.id : null
-  location_id   = local.rack != null && local.rack.location_id != 0 ? local.rack.location_id : null
-  rack_position = local.rack != null ? var.rack.position : null
-  rack_face     = local.rack != null ? var.rack.face : null
+  # rack placement; all null when no rack is given (face is required whenever
+  # position is set)
+  rack_id       = var.rack_id
+  location_id   = var.location_id
+  rack_position = var.rack_id != null && var.rack != null ? var.rack.position : null
+  rack_face     = var.rack_id != null && var.rack != null ? var.rack.face : null
 
   lifecycle {
     ignore_changes = [
@@ -32,39 +40,28 @@ resource "netbox_device" "main" {
   }
 }
 
-data "netbox_racks" "main" {
-  count = var.rack != null && var.site != null ? 1 : 0
-
-  filter {
-    name  = "facility_id"
-    value = var.rack.facility_id
-  }
-
-  filter {
-    name  = "site_id"
-    value = tostring(data.netbox_site.main[0].id)
-  }
-}
-
 data "netbox_device_role" "main" {
-  name = var.role
+  count = var.role_id == null ? 1 : 0
+  name  = var.role
 }
 
 data "netbox_device_type" "main" {
+  count = var.device_type_id == null ? 1 : 0
   model = var.model
 }
 
 data "netbox_platform" "main" {
-  name = var.platform
+  count = var.platform_id == null ? 1 : 0
+  name  = var.platform
 }
 
 data "netbox_site" "main" {
-  count = var.site != null ? 1 : 0
+  count = var.site_id == null && var.site != null ? 1 : 0
   name  = var.site
 }
 
 data "netbox_cluster" "main" {
-  count = var.cluster != null ? 1 : 0
+  count = var.cluster_id == null && var.cluster != null ? 1 : 0
   name  = var.cluster
 }
 
