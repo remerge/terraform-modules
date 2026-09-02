@@ -46,7 +46,6 @@ resource "netbox_interface" "main" {
   lifecycle {
     ignore_changes = [
       description,
-      mac_address,
       mtu,
     ]
   }
