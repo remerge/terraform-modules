@@ -2,8 +2,15 @@ locals {
   hostname = coalesce(var.hostname, var.name)
   domain   = try(trimsuffix(var.zone.dns_name, "."), "local")
   fqdn     = "${local.hostname}.${local.domain}"
-  metadata = coalesce(var.metadata, local.template.metadata)
   template = data.google_compute_instance_template.main
+
+  base_metadata = coalesce(var.metadata, local.template.metadata)
+  metadata = var.startup_script_extra == null ? local.base_metadata : merge(local.base_metadata, {
+    startup-script = trimspace(join("\n", [
+      try(local.base_metadata["startup-script"], ""),
+      var.startup_script_extra,
+    ]))
+  })
 }
 
 data "google_compute_instance_template" "main" {
@@ -24,6 +31,13 @@ resource "google_compute_instance_from_template" "main" {
 
   zone         = var.compute_zone
   machine_type = var.machine_type
+
+  dynamic "scheduling" {
+    for_each = var.on_host_maintenance == null ? [] : [1]
+    content {
+      on_host_maintenance = var.on_host_maintenance
+    }
+  }
 
   boot_disk {
     auto_delete = true
