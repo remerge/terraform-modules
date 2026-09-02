@@ -84,3 +84,13 @@ variable "scratch_disk_count" {
   type    = number
   default = 0
 }
+
+variable "on_host_maintenance" {
+  type    = string
+  default = null
+}
+
+variable "startup_script_extra" {
+  type    = string
+  default = null
+}
