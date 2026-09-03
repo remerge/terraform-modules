@@ -39,6 +39,27 @@ resource "google_compute_instance_from_template" "main" {
     }
   }
 
+  # A GPU that is not implied by the machine type has to be attached. G2 and A2
+  # carry theirs, N1 does not.
+  dynamic "guest_accelerator" {
+    for_each = var.guest_accelerator == null ? [] : [var.guest_accelerator]
+    content {
+      type  = guest_accelerator.value.type
+      count = guest_accelerator.value.count
+    }
+  }
+
+  # Subnetworks are regional, so an instance placed outside the template's
+  # region needs its own. Overriding this replaces the template's interface,
+  # which carries no external address either.
+  dynamic "network_interface" {
+    for_each = var.subnetwork == null ? [] : [1]
+    content {
+      subnetwork         = var.subnetwork
+      subnetwork_project = var.subnetwork_project
+    }
+  }
+
   boot_disk {
     auto_delete = true
     device_name = "boot"

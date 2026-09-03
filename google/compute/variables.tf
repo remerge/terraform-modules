@@ -94,3 +94,21 @@ variable "startup_script_extra" {
   type    = string
   default = null
 }
+
+variable "guest_accelerator" {
+  type = object({
+    type  = string
+    count = optional(number, 1)
+  })
+  default = null
+}
+
+variable "subnetwork" {
+  type    = string
+  default = null
+}
+
+variable "subnetwork_project" {
+  type    = string
+  default = "network-6f9a"
+}
