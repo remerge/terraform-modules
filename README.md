@@ -18,6 +18,12 @@ module "<module_name>" {
 
 Now let's delve into the individual modules:
 
+## auth0/client
+
+This module creates a hardened Auth0 application for user login, either a
+single-page app (public client) or a server-side web app (confidential client),
+with optional API grants and connection enablement.
+
 ## consul/dns
 
 This module sets up a DNS forwarding zone for Consul in Google Cloud.
