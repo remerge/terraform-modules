@@ -44,17 +44,6 @@ variable "web_origins" {
   default     = null
 }
 
-variable "is_first_party" {
-  description = <<-EOT
-    Whether the client is first-party. False creates a strict third-party
-    client: Auth0 rejects `connections` for it and logs users in only through
-    an Organization that allows third-party clients. Clients we register
-    ourselves stay first-party, even when someone else runs them.
-  EOT
-  type        = bool
-  default     = true
-}
-
 variable "grants" {
   description = <<-EOT
     API grants, keyed by audience (resource-server identifier), each mapping to

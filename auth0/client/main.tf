@@ -2,7 +2,7 @@
 # single-page app (public client, `type = "spa"`) or a server-side web app
 # (confidential client, `type = "regular_web"`). Every hardening value here is
 # intentionally identical across all clients of both types; per-app variation
-# is limited to the name, URLs, grants, connections and `is_first_party`.
+# is limited to the name, URLs, grants and connections.
 locals {
   spa = var.type == "spa"
 }
@@ -10,7 +10,10 @@ locals {
 resource "auth0_client" "this" {
   name = var.name
 
-  is_first_party     = var.is_first_party
+  # First-party: we register every client ourselves. A third-party client is
+  # created in strict mode, which cannot be enabled on a connection and logs
+  # users in only through an Organization prompt.
+  is_first_party     = true
   app_type           = var.type
   oidc_conformant    = true
   organization_usage = "allow"
