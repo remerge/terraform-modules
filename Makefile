@@ -95,8 +95,8 @@ pre-commit-install: ## install pre-commit hook
 	pre-commit install -t pre-commit -t prepare-commit-msg -t commit-msg
 
 .PHONY: pre-commit-format
-pre-commit-format: ## run pre commit hooks
-pre-commit-format: pre-commit-check
+pre-commit-format: ## run pre commit formatting hooks
+	pre-commit run format --all-files
 format:: pre-commit-format
 
 .PHONY: pre-commit-check
