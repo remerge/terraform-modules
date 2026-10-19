@@ -13,8 +13,9 @@ resource "google_sql_database_instance" "main" {
   project = var.project
   region  = var.region
 
-  database_version = var.database_version
-  root_password    = random_password.root.result
+  database_version    = var.database_version
+  root_password       = random_password.root.result
+  deletion_protection = var.deletion_protection
 
   settings {
     tier = var.tier

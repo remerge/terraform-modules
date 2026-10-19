@@ -59,3 +59,9 @@ variable "authorized_networks" {
   }))
   default = []
 }
+
+variable "deletion_protection" {
+  description = "Refuse to destroy the instance from Terraform. Set to false and apply before removing the module."
+  type        = bool
+  default     = true
+}
