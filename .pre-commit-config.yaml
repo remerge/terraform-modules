@@ -115,3 +115,9 @@ repos:
           - --hook-config=--mode=regenerate-lockfile-if-some-platform-missed
           - --args=-platform=darwin_arm64
           - --args=-platform=linux_amd64
+
+  # Repository hooks: add this repository's own hooks below this comment.
+  # The template only ever adds or changes hooks above it, so copier update
+  # carries everything below it over without conflicts. Paths that no hook
+  # should touch (vendored or generated files) go into a top-level
+  # `exclude:` regex at the very end of the file, after these hooks.
