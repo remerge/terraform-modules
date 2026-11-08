@@ -22,15 +22,8 @@ variable "read_credentials" {
   type        = bool
   default     = true
   description = <<-EOT
-    Read the remote-management (and, without root_password, the root) password
-    from the Leaseweb API. Needed when the 1Password item is created or
-    replaced; set false for hosts whose item already exists.
+    Read the remote-management and root passwords from the Leaseweb API.
+    Needed when the 1Password item is created or replaced; set false for
+    hosts whose item already exists.
   EOT
-}
-
-variable "root_password" {
-  type        = string
-  default     = null
-  sensitive   = true
-  description = "Root password the host was installed with (os_root_password of leaseweb/server/installation). null reads it from the Leaseweb API."
 }

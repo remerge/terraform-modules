@@ -1,7 +1,9 @@
 # The Leaseweb credentials API fails intermittently, and every read is a chance
 # to fail the whole plan. Credentials are therefore read only when the caller
 # asks for them (new host, new equipment ID); otherwise the 1Password item keeps
-# the passwords it was written with (see ignore_changes below).
+# the passwords it was written with (see ignore_changes below). After a
+# reinstall, replace the item with read_credentials set to pick up the new
+# root password.
 data "leaseweb_dedicated_server_credential" "main" {
   count = var.read_credentials ? 1 : 0
 
@@ -10,9 +12,8 @@ data "leaseweb_dedicated_server_credential" "main" {
   username            = "admin"
 }
 
-# Hosts installed by Terraform pass the root password they were installed with.
 data "leaseweb_dedicated_server_credential" "root" {
-  count = var.root_password == null && var.read_credentials ? 1 : 0
+  count = var.read_credentials ? 1 : 0
 
   dedicated_server_id = var.leaseweb_id
   type                = "OPERATING_SYSTEM"
@@ -21,11 +22,11 @@ data "leaseweb_dedicated_server_credential" "root" {
 
 locals {
   admin_password = one(data.leaseweb_dedicated_server_credential.main[*].password)
-  root_password  = var.root_password != null ? var.root_password : one(data.leaseweb_dedicated_server_credential.root[*].password)
+  root_password  = one(data.leaseweb_dedicated_server_credential.root[*].password)
 }
 
-# New hardware (a new equipment ID) comes with a new remote-management
-# password, so the item is written again from fresh credentials.
+# New hardware (a new equipment ID) comes with new credentials, so the item is
+# written again from fresh ones.
 resource "terraform_data" "equipment" {
   input = var.leaseweb_id
 }
@@ -110,20 +111,14 @@ resource "onepassword_item" "gc" {
   }
 
   lifecycle {
-    # The remote-management password is written once. The paths are indexes:
-    # section 2 is "idrac", field 2 its "password". Keep them in sync with the
-    # block order above.
+    # Both passwords are written once. The paths are indexes: section 2 is
+    # "idrac" (field 2 "password"), section 3 is "os" (field 1 "password").
+    # Keep them in sync with the block order above.
     ignore_changes = [
       password,
       section[2].field[2].value,
+      section[3].field[1].value,
     ]
     replace_triggered_by = [terraform_data.equipment]
-
-    # Without an install password, the root password has no source other
-    # than the API, and an empty one would overwrite the stored value.
-    precondition {
-      condition     = var.read_credentials || var.root_password != null
-      error_message = "read_credentials = false requires root_password."
-    }
   }
 }
