@@ -45,11 +45,11 @@ repos:
         types: [text]
         exclude: "^project/"
         additional_dependencies:
-          - "prettier@3.9.9"
+          - "prettier@3.9.10"
 
   # https://github.com/igorshubovych/markdownlint-cli/tags
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: "v0.49.1"
+    rev: "v0.50.0"
     hooks:
       - id: markdownlint-fix
         alias: format
@@ -85,7 +85,7 @@ repos:
 
   # https://github.com/bridgecrewio/checkov/tags
   - repo: https://github.com/bridgecrewio/checkov
-    rev: "3.3.20"
+    rev: "3.4.3"
     hooks:
       - id: checkov
         name: checkov
@@ -99,7 +99,7 @@ repos:
 
   # https://github.com/antonbabenko/pre-commit-terraform/tags
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: "v1.109.1"
+    rev: "v1.109.4"
     hooks:
       - id: terraform_fmt
         alias: format
@@ -115,3 +115,9 @@ repos:
           - --hook-config=--mode=regenerate-lockfile-if-some-platform-missed
           - --args=-platform=darwin_arm64
           - --args=-platform=linux_amd64
+
+  # Repository hooks: add this repository's own hooks below this comment.
+  # The template only ever adds or changes hooks above it, so copier update
+  # carries everything below it over without conflicts. Paths that no hook
+  # should touch (vendored or generated files) go into a top-level
+  # `exclude:` regex at the very end of the file, after these hooks.
