@@ -13,7 +13,7 @@ variable "region" {
 
 variable "database_version" {
   type    = string
-  default = "POSTGRES_18"
+  default = "POSTGRES_19"
 }
 
 variable "tier" {
