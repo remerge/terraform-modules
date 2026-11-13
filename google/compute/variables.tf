@@ -61,11 +61,17 @@ variable "disk_size" {
   default = 10
 }
 
+# A volume with a path is formatted and mounted there at first boot; one
+# without is attached and left alone, which is what every caller got before.
 variable "volumes" {
   type = map(object({
     type = optional(string, "pd-ssd")
     size = optional(number, 10)
     path = optional(string, null)
+
+    filesystem    = optional(string, "ext4")
+    mkfs_options  = optional(string, "")
+    mount_options = optional(string, "defaults,noatime,nofail")
   }))
   default = {}
 }

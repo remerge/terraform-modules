@@ -36,11 +36,24 @@ resource "google_compute_instance_template" "default" {
     EOF
     fi
 
+    # pkg.scaleft.com was retired and answers 403, which failed the repo setup
+    # and, under `set -e`, took the rest of the script with it: no sftd, so no
+    # Okta enrollment and no way onto the host. Written out directly against
+    # the host that replaced it, as leaseweb/server/installation already does.
     if [[ ! -e /etc/yum.repos.d/scaleft_yum.repo ]]; then
-        dnf config-manager --add-repo https://pkg.scaleft.com/scaleft_yum.repo
+        cat >/etc/yum.repos.d/scaleft_yum.repo <<'EOF'
+    [scaleft]
+    async = 1
+    baseurl = https://dist.scaleft.com/repos/rpm/stable/alma/9/x86_64/
+    gpgcheck=1
+    gpgkey = https://dist.scaleft.com/GPG-KEY-OktaPAM-2023
+    name = ScaleFT
+    repo_gpgcheck = 1
+    EOF
     fi
 
     if [[ ! -e /usr/sbin/sftd ]]; then
+        dnf makecache -y
         update-crypto-policies --set LEGACY
         dnf install -y scaleft-server-tools
     fi
