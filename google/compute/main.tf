@@ -5,11 +5,33 @@ locals {
   template = data.google_compute_instance_template.main
 
   base_metadata = coalesce(var.metadata, local.template.metadata)
-  metadata = var.startup_script_extra == null ? local.base_metadata : merge(local.base_metadata, {
-    startup-script = trimspace(join("\n", [
+
+  volume_setup = [
+    for key, volume in var.volumes : trimspace(<<-EOS
+      device=/dev/disk/by-id/google-${key}
+      if ! blkid "$${device}" >/dev/null 2>&1; then
+          mkfs.${volume.filesystem} ${volume.mkfs_options} "$${device}"
+      fi
+      mkdir -p ${volume.path}
+      if ! grep -q " ${volume.path} " /etc/fstab; then
+          echo "$${device} ${volume.path} ${volume.filesystem} ${volume.mount_options} 0 2" >>/etc/fstab
+          systemctl daemon-reload
+      fi
+      mountpoint -q ${volume.path} || mount ${volume.path}
+    EOS
+    ) if volume.path != null
+  ]
+
+  startup_script = trimspace(join("\n\n", compact(concat(
+    length(local.volume_setup) == 0 ? [] : concat(["set -x"], local.volume_setup),
+    [
       try(local.base_metadata["startup-script"], ""),
       var.startup_script_extra,
-    ]))
+    ],
+  ))))
+
+  metadata = (var.startup_script_extra == null && length(local.volume_setup) == 0) ? local.base_metadata : merge(local.base_metadata, {
+    startup-script = local.startup_script
   })
 }
 
