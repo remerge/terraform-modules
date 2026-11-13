@@ -36,10 +36,6 @@ resource "google_compute_instance_template" "default" {
     EOF
     fi
 
-    # pkg.scaleft.com was retired and answers 403, which failed the repo setup
-    # and, under `set -e`, took the rest of the script with it: no sftd, so no
-    # Okta enrollment and no way onto the host. Written out directly against
-    # the host that replaced it, as leaseweb/server/installation already does.
     if [[ ! -e /etc/yum.repos.d/scaleft_yum.repo ]]; then
         cat >/etc/yum.repos.d/scaleft_yum.repo <<'EOF'
     [scaleft]

@@ -6,15 +6,6 @@ locals {
 
   base_metadata = coalesce(var.metadata, local.template.metadata)
 
-  # Formatting runs ahead of the template's own script, not after it. That
-  # script installs Okta's agent from a third-party repo, and when that repo
-  # started answering 403 every new instance came up with no data disk as
-  # collateral -- `set -e` killed the script before anything after it ran.
-  # Nothing below reaches the network, so it cannot fail that way.
-  #
-  # Idempotent: it is a startup script, so it runs on every boot. blkid guards
-  # the format and mkfs is given no -f, so a disk carrying a filesystem is left
-  # alone twice over -- including a ZFS member, which reads as a filesystem.
   volume_setup = [
     for key, volume in var.volumes : trimspace(<<-EOS
       device=/dev/disk/by-id/google-${key}
