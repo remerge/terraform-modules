@@ -239,3 +239,32 @@ module "op_github_actions" {
     "token_${var.cluster}_github_actions" = nomad_acl_token.github_actions.secret_id
   }
 }
+
+# remerge/nomad-state-metrics exports the state of Nomad objects (jobs, task
+# group counts, allocations, deployments, evaluations, nodes, servers) as
+# Prometheus metrics. Its job in the default namespace reads the Nomad API
+# through the task API socket with its workload identity; this policy, bound
+# to the job, grants the reads and nothing else.
+resource "nomad_acl_policy" "nomad_state_metrics" {
+  name        = "nomad-state-metrics"
+  description = "Read access for the nomad-state-metrics exporter"
+
+  job_acl {
+    namespace = nomad_namespace.default.name
+    job_id    = "nomad-state-metrics"
+  }
+
+  rules_hcl = <<-EOT
+    namespace "*" {
+      policy = "read"
+    }
+
+    node {
+      policy = "read"
+    }
+
+    agent {
+      policy = "read"
+    }
+  EOT
+}
